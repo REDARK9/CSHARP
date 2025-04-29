@@ -1,0 +1,1934 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><p><img src="_page_0_Picture_1.jpeg" alt=""></p>
+<h1 id="-use-a-c-style-guide-for-clean-and-scalable-game-code-"><strong>Use a C# style guide for clean and scalable game code</strong></h1>
+<p><img src="_page_0_Picture_3.jpeg" alt=""></p>
+<p><img src="_page_0_Picture_4.jpeg" alt=""></p>
+<h3 id="-contents-"><strong>Contents</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Introduction 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contributors 5</td>
+</tr>
+<tr>
+<td>Developing as a team 6</td>
+</tr>
+<tr>
+<td>KISS (keep it simple, stupid) 6</td>
+</tr>
+<tr>
+<td>The KISS principle 7</td>
+</tr>
+<tr>
+<td>The YAGNI principle 7</td>
+</tr>
+<tr>
+<td>Don&#39;t code around the problem 7</td>
+</tr>
+<tr>
+<td>Improve incrementally, every day 8</td>
+</tr>
+<tr>
+<td>Make it good, not perfect 8</td>
+</tr>
+<tr>
+<td>Plan, but adapt 8</td>
+</tr>
+<tr>
+<td>Be consistent 8</td>
+</tr>
+<tr>
+<td>It takes a village 8</td>
+</tr>
+<tr>
+<td>Follow a style guide 9</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>A style guide for you and your team 9</td>
+</tr>
+<tr>
+<td>Naming conventions 11</td>
+</tr>
+<tr>
+<td>Identifier names 11</td>
+</tr>
+<tr>
+<td>Casing terminology 12</td>
+</tr>
+<tr>
+<td>Camel case (camelCase) 12</td>
+</tr>
+<tr>
+<td>Pascal case (PascalCase) 12</td>
+</tr>
+<tr>
+<td>Snake case (snake_case) 12</td>
+</tr>
+<tr>
+<td>Kebab case (kebab-case) 12</td>
+</tr>
+<tr>
+<td>Hungarian notation 13</td>
+</tr>
+<tr>
+<td>Fields and variables 13</td>
+</tr>
+<tr>
+<td>Enums 17</td>
+</tr>
+<tr>
+<td>Classes and interfaces 18</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Events and event handlers 19</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Namespaces 21</td>
+</tr>
+<tr>
+<td>Formatting 23</td>
+</tr>
+<tr>
+<td>Properties 24</td>
+</tr>
+<tr>
+<td>Serialization 26</td>
+</tr>
+<tr>
+<td>Brace or indentation style 27</td>
+</tr>
+<tr>
+<td>What is EditorConfig? 31</td>
+</tr>
+<tr>
+<td>Horizontal spacing 32</td>
+</tr>
+<tr>
+<td>Vertical spacing 34</td>
+</tr>
+<tr>
+<td>Regions 34</td>
+</tr>
+<tr>
+<td>Code formatting in Visual Studio 34</td>
+</tr>
+<tr>
+<td>Classes 38</td>
+</tr>
+<tr>
+<td>The newspaper metaphor 38</td>
+</tr>
+<tr>
+<td>Class organization 39</td>
+</tr>
+<tr>
+<td>Single-responsibility principle 40</td>
+</tr>
+<tr>
+<td>Refactoring example 42</td>
+</tr>
+<tr>
+<td>Methods 43</td>
+</tr>
+<tr>
+<td>Methods vs functions? 44</td>
+</tr>
+<tr>
+<td>Extension methods 44</td>
+</tr>
+<tr>
+<td>The DRY principle: Don&#39;t repeat yourself 45</td>
+</tr>
+<tr>
+<td>Comments 48</td>
+</tr>
+<tr>
+<td>UI Toolkit naming conventions 51</td>
+</tr>
+<tr>
+<td>Common pitfalls 54</td>
+</tr>
+<tr>
+<td>Conclusion 56</td>
+</tr>
+<tr>
+<td>References 57</td>
+</tr>
+<tr>
+<td>Appendix: Script templates 58</td>
+</tr>
+<tr>
+<td>Appendix: Testing and debugging 62</td>
+</tr>
+<tr>
+<td>Unity Test Framework 63</td>
+</tr>
+</tbody>
+</table>
+<h1 id="-span-id-page-3-0-span-introduction"><span id="page-3-0"></span>Introduction</h1>
+<h3 id="-clean-code-always-looks-like-it-was-written-by-someone-who-cares-"><em>Clean code always looks like it was written by someone who cares.</em></h3>
+<p>– Michael Feathers, author of <em>Working Effectively with Legacy Code</em></p>
+<p>Most game developers would agree that you need clean code: Code that is easy to read and efficient to maintain and reuse. Once your logic is functional, then the process of refactoring and cleaning up begins.</p>
+<p>There are good reasons for this congruence. Something that might be obvious to you as the original author might be less apparent to another developer. By the same token, when you implement some logic now, you might not remember what that same code snippet does three months later.</p>
+<p>Chances are you already have preferences for how to write your code today. However, your teammates of tomorrow will most likely have different preferences. While there is no right solution this guide provides some tips on how you can leverage a style guide to agree on standards.</p>
+<p><span id="page-4-0"></span><img src="_page_4_Picture_0.jpeg" alt=""></p>
+<p>This guide compiles advice from industry experts on how to use or adapt existing industry standard code style guides. Establishing such a guide for everyone in your team to follow will help ensure your codebase can grow your project to a commercial-scale production.</p>
+<p>These tips and tricks will help your development process in the long term, even if they cost you extra effort up front. A cleaner, more scalable codebase also facilitates the efficient onboarding of new developers as you expand your team.</p>
+<p>Keep your code clean to make life easier for yourself and everyone involved in the project.</p>
+<p>Clean code aims to make development more scalable and conform to a set of production standards, including:</p>
+<ul>
+<li>Follow consistent naming conventions</li>
+<li>Format your code for legibility</li>
+<li>Organize classes and methods to keep them small and readable</li>
+<li>Comment on any code that isn&#39;t self-explanatory</li>
+</ul>
+<p>Whether you&#39;re building a puzzler for mobile or a massive MMORPG targeted at consoles, keeping your codebase clean reduces the total cost of software maintenance. You can then implement new features or patch your existing software more easily.</p>
+<p>Your future teammates – and your future self – will be thankful for that.</p>
+<p><strong>Note</strong>: This is the second edition of this e-book, now updated for Unity 6.</p>
+<h4 id="contributors">Contributors</h4>
+<p>This guide was written by Wilmer Lin, an independent game developer and educator. Significant contributions were also made by technical content marketing manager Thomas Krogh-Jacobsen and senior Unity engineers Peter Andreasen, Scott Bilas, and Mihai Popescu.</p>
+<h1 id="-span-id-page-5-0-span-developing-as-a-team"><span id="page-5-0"></span>Developing as a team</h1>
+<p><em>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</em></p>
+<p>– Martin Fowler, author of <em>Refactoring</em></p>
+<p>No developer is an island. As the technical needs of your game application grow, you&#39;ll need help. Inevitably, you&#39;ll add more team members with diverse skill sets. Clean code introduces coding standards for your ever-expanding team so everyone is on the same page. Now everybody can work on the same project with a more uniform set of guidelines.</p>
+<p>Before looking into the specifics of code style guides, let&#39;s revisit some general, style-agnostic rules to help you scale up your Unity development.</p>
+<h3 id="kiss-keep-it-simple-stupid-">KISS (keep it simple, stupid)</h3>
+<p>Let&#39;s face it: Engineers and developers can overcomplicate things, even though computing and programming are hard enough. Use the <a href="https://en.wikipedia.org/wiki/KISS_principle">KISS principle</a> of &quot;keep it simple, stupid&quot; as a guide for finding the simplest solution to the problem at hand.</p>
+<p><span id="page-6-0"></span><img src="_page_6_Picture_0.jpeg" alt=""></p>
+<p>There&#39;s no need to reinvent the wheel if a proven and simple technique solves your challenge. Unity already includes numerous solutions in its Scripting API. For example, if the existing <a href="https://docs.unity3d.com/Manual/tilemaps/work-with-tilemaps/hexagonal-tilemaps.html">Hexagonal Tilemap</a> works for your strategy game, or the <a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Pool.ObjectPool_1.html">UnityEngine.Pool</a> solves your object pooling system needs, skip writing your own. The best code you can write is no code at all.</p>
+<h2 id="the-kiss-principle">The KISS principle</h2>
+<p>The well-known <a href="https://en.wikipedia.org/wiki/KISS_principle">KISS principle</a> emphasizes simplicity in design, an idea that&#39;s been popular throughout different times, as these quotes attest:</p>
+<blockquote>
+<p>&quot;Simplicity is the ultimate sophistication.&quot; – Leonardo da Vinci</p>
+<blockquote>
+<p>&quot;Make simple tasks simple!&quot; – Bjarne Stroustrup</p>
+</blockquote>
+</blockquote>
+<p>&quot;Simplicity is a prerequisite for reliability.&quot; – Edsger W. Dijkstra</p>
+<p>&quot;Everything should be made as simple as possible, but no simpler.&quot; – Albert Einstein</p>
+<p>In programming, that means keeping your code as streamlined as possible. Avoid adding unnecessary complexity</p>
+<h4 id="the-yagni-principle">The YAGNI principle</h4>
+<p>The related <a href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it">YAGNI principle</a> (&quot;you aren&#39;t gonna need it&quot;) instructs you to implement features only as you need them. Don&#39;t worry about features that you might need once the stars align. Build the simplest thing that you need now and build it to work.</p>
+<h4 id="don-t-code-around-the-problem">Don&#39;t code around the problem</h4>
+<p>The first step of software development is to understand what you are trying to solve. This idea might seem like common sense, but too often developers get bogged down in implementing code without understanding the actual problem, or they&#39;ll modify the code until it works without fully grasping why.</p>
+<p>What if, for example, you fixed a Null Reference Exception with a quick if-null statement at the top of a method? Are you sure that was the real culprit, or was the problem a call to another method deeper inside?</p>
+<p>Instead of adding code to fix a problem, investigate the root cause. <a href="https://en.wikipedia.org/wiki/Five_whys">Ask yourself why</a> it&#39;s happening rather than applying a band-aid solution.</p>
+<p><span id="page-7-0"></span><img src="_page_7_Picture_0.jpeg" alt=""></p>
+<h4 id="improve-incrementally-every-day">Improve incrementally, every day</h4>
+<p>Making clean code is a fluid, iterative process. Get the whole team into this mindset, and expect code cleanup to be part of your day-to-day life as a developer. Most people don&#39;t intend to write broken code. It just evolves that way over time. Your codebase needs constant maintenance and upkeep, so budget time for that and make sure it happens.</p>
+<h4 id="make-it-good-not-perfect">Make it good, not perfect</h4>
+<p>On the flip side, don&#39;t strive for perfection. When your code meets production standards, it&#39;s time to commit it and move on.</p>
+<p>Ultimately, your code needs to do something. Balance implementing new functionality with code cleanup. Don&#39;t refactor for the sake of it. Refactor when you think it will provide a benefit to you or somebody else.</p>
+<h4 id="plan-but-adapt">Plan, but adapt</h4>
+<p>In <em><a href="https://en.wikipedia.org/wiki/The_Pragmatic_Programmer">The Pragmatic Programmer</a></em><a href="https://en.wikipedia.org/wiki/The_Pragmatic_Programmer">, Andy Hunt and Dave Thomas</a> write, &quot;Rather than construction, programming is more like gardening.&quot; Software engineering is an organic process, so be prepared and adapt for when things don&#39;t go according to plan.</p>
+<p>Even if you make the most elaborate drawing, designing a garden on paper will not guarantee results. Your plants may bloom differently than you expected. You&#39;ll need to prune, transplant, and replace parts of your code to make this garden successful.</p>
+<p>Software design isn&#39;t quite like an architect drawing blueprints because it&#39;s more malleable and less mechanical. You&#39;ll need to react as your codebase grows.</p>
+<h4 id="be-consistent">Be consistent</h4>
+<p>Once you decide how to tackle a problem, approach similar things the same way. It&#39;s not difficult but will take constant effort. Apply this principle to everything from naming (classes and methods, casing, etc.) to organizing project folders and resources.</p>
+<p>Above all, have your team agree on a style guide and then follow it.</p>
+<h4 id="it-takes-a-village">It takes a village</h4>
+<p>As Robert C. Martin, an American software engineer and author also known as &quot;Uncle Bob&quot; says, although keeping code clean and simple is in everyone&#39;s best interest, &quot;clean and simple&quot; is not the same as &quot;easy.&quot; Clean and simple takes effort and is hard work for beginners and experienced developers alike.</p>
+<p>Your project will become messy if left unchecked. It&#39;s a natural consequence of so many people working on different parts of a project. Everyone is responsible for pitching in and preventing code clutter, and each team member will need to read and follow the style guide.</p>
+<h1 id="-span-id-page-8-0-span-follow-a-style-guide"><span id="page-8-0"></span>Follow a style guide</h1>
+<h3 id="-there-are-only-two-hard-things-in-computer-science-cache-invalidation-and-naming-things-"><em>There are only two hard things in Computer Science: cache invalidation and naming things.</em></h3>
+<p>– Phil Karlton, software engineer</p>
+<h2 id="a-style-guide-for-you-and-your-team">A style guide for you and your team</h2>
+<p>This guide focuses on the most common coding conventions you&#39;ll encounter during Unity development. These are mostly a subset of the <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/">Microsoft Framework Design Guidelines</a>, which include an extensive number of rules beyond what is presented here.</p>
+<p>These guidelines are recommendations, not hard and fast rules. Customize them according to your team&#39;s preferences. Pick a style that suits everyone and ensure they apply it.</p>
+<p>Consistency is king. If you follow these suggestions and need to modify your style guide in the future, a few find-and-replace operations can migrate your codebase quickly.</p>
+<p><img src="_page_9_Picture_0.jpeg" alt=""></p>
+<p>When your style guide conflicts with this document or the Microsoft Framework Design Guidelines, it should take precedence over them because this will allow your team to maintain a uniform style throughout your project.</p>
+<p>Your application is the collective product of individuals who might think differently from one another. A style guide helps rein in those differences to create a cohesive final product. No matter how many contributors work on a Unity project, it should feel like it&#39;s been developed by a single author.</p>
+<p>Style guides take the guesswork out of coding conventions and formatting. Consistent style then becomes a matter of following directions.</p>
+<p>If you&#39;re a solo developer, this might feel like a constraint at first, but following a style guide is essential when working in teams.</p>
+<p>Think of a style guide as an initial investment that will pay dividends later. Maintaining a single set of standards can reduce the time spent on relearning if you move anyone onto another project.</p>
+<p>Microsoft and Google both offer comprehensive example guides which are generally considered to be the industry standards:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions">Microsoft C# Coding Conventions</a></li>
+<li><a href="https://google.github.io/styleguide/csharp-style.html">C# at Google Style Guide</a></li>
+</ul>
+<p>These are excellent starting points for managing your Unity development and offer solutions for naming, formatting, and commenting.</p>
+<p>At Unity, we don&#39;t enforce the same code style across all of our beginner tutorials, documentation and sample projects. The main reason for doing this is that a strict style guide can get in the way of the learning curve for beginner users vs a need to enforce more strict guidelines when working in large teams and more advanced use cases. There are simply different needs for someone just learning Unity and perhaps their first programming language, and engineering teams with 2000+ people.</p>
+<p>In this guide, we thus follow a code style that extends <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/">Microsoft&#39;s Framework Design</a>  <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/">Guidelines,</a> which defines a number of rules not covered by this document. This code style is closer to that which is used by our engineering and documentation teams, and what we believe will be well-suited for most Unity projects – a style that balances pragmatism over strictness.</p>
+<p>Ultimately, the key is to choose one that works for you and your team and maintain consistency throughout your project.</p>
+<p>We created an example <a href="https://github.com/thomasjacobsen-unity/Unity-Code-Style-Guide">C# style sheet</a> that you can also use as a reference as you assemble your own guide. Feel free to copy and tweak it as needed.</p>
+<p>Let&#39;s dive in.</p>
+<h1 id="-span-id-page-10-0-span-naming-conventions"><span id="page-10-0"></span>Naming conventions</h1>
+<p>There&#39;s a deep psychology involved in giving something a name. A name tells us how that entity fits into the world. What is it? Who is it? What can it do for us?</p>
+<p>The names of your variables, classes, and methods aren&#39;t mere labels. They carry weight and meaning. Good naming style impacts how someone reading your program can comprehend the idea you&#39;re trying to convey.</p>
+<p>Here are some guidelines to consider for naming.</p>
+<h4 id="identifier-names">Identifier names</h4>
+<p>An <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/lexical-structure#identifiers">identifier</a> is any name you assign to a type (class, interface, struct, delegate, or enum), member, variable, or namespace.</p>
+<p>Avoid special characters (backslashes, symbols, Unicode characters) in your identifiers, even though C# permits them. These can interfere with certain Unity command-line tools. Steer clear of unusual characters to ensure compatibility with most platforms.</p>
+<p><span id="page-11-0"></span><img src="_page_11_Picture_0.jpeg" alt=""></p>
+<h2 id="casing-terminology">Casing terminology</h2>
+<p>You can&#39;t define variables with spaces in the name because C# uses the space character to separate identifiers. Casing schemes can alleviate the problem of using compound names or phrases in source code. There are several well-known naming and casing conventions.</p>
+<h4 id="-camel-case-camelcase-"><strong>Camel case (camelCase)</strong></h4>
+<p>Also known as camel caps, <a href="https://en.wikipedia.org/wiki/Camel_case">camel case</a> is the practice of writing phrases without spaces or punctuation, separating words with a single capitalized letter. The very first letter is lowercase. Local variables and method parameters are camel case. For example:</p>
+<pre><code><span class="hljs-attribute">examplePlayerController
+maxHealthPoints
+endOfFile</span>
+</code></pre><h4 id="-pascal-case-pascalcase-"><strong>Pascal case (PascalCase)</strong></h4>
+<p>Pascal case is a variation of camel case, where the initial letter is capitalized. Use this for class, public fields and method names in Unity development. For example:</p>
+<pre><code><span class="hljs-attribute">ExamplePlayerController
+MaxHealthPoints
+EndOfFile</span>
+</code></pre><h4 id="-snake-case-snake-_case-"><strong>Snake case (snake_case)</strong></h4>
+<p>In this case, spaces between words are replaced with an underscore character. For example:</p>
+<pre><code>example<span class="hljs-number">_p</span>layer<span class="hljs-number">_</span>controller
+max<span class="hljs-number">_</span>health<span class="hljs-number">_p</span>oints
+end<span class="hljs-number">_</span><span class="hljs-keyword">of</span><span class="hljs-number">_f</span>ile
+</code></pre><h4 id="-kebab-case-kebab-case-"><strong>Kebab case (kebab-case)</strong></h4>
+<p>Here, spaces between words are replaced with dashes. The words appear on a &quot;skewer&quot; of dash characters. For example:</p>
+<pre><code>example-player-controller
+Max-health-points
+<span class="hljs-keyword">end</span>-<span class="hljs-keyword">of</span>-<span class="hljs-built_in">file</span> 
+naming-conventions-methodology
+</code></pre><p>The Kebab-case is widely used in web technologies and namely for CSS. We are also recommending it for use with UI Toolkit USS as we will be covering later in the guide.</p>
+<p><span id="page-12-0"></span><img src="_page_12_Picture_0.jpeg" alt=""></p>
+<h4 id="-hungarian-notation-"><strong>Hungarian notation</strong></h4>
+<p>The variable or function name often indicates its intention or type. For example:</p>
+<p>int iCounter string strPlayerName Hungarian notation is an older convention and is not common in Unity development.</p>
+<h4 id="fields-and-variables">Fields and variables</h4>
+<p>Consider these rules for your variables and <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/fields">fields:</a></p>
+<ul>
+<li><strong>Use nouns for variable names:</strong> Variable names should be descriptive, clear, and unambiguous because they represent a thing or state. So use a noun when naming them except when the variable is of the type bool (see below).</li>
+<li><strong>Prefix Booleans with a verb:</strong> These variables indicate a true or false value. Often they are the answer to a question, such as – is the player running? Is the game over? Prefix them with a verb to make their meaning more apparent. Often this is paired with a description or condition, e.g. isDead, isWalking, hasDamageMultiplier, etc.</li>
+<li><strong>Use meaningful names. Don&#39;t abbreviate (unless it&#39;s math):</strong> Your variable names should reveal their intent. Choose names that are easy to pronounce and search for – not just for your colleagues but also to provide extra context to the code for when using AI tools, as this can contribute to more accurate code generation and suggestions. Choose identifier names that are easily readable. For example, a property named HorizontalAlignment is more readable than AlignmentHorizontal.</li>
+</ul>
+<p>Single letter variables are fine for loops and math expressions, but otherwise, don&#39;t abbreviate. Clarity is more important than any time saved from omitting a few vowels.</p>
+<p>You might be tempted to use short &quot;junk&quot; names when prototyping, but this won&#39;t save you time if you need to refactor the code at a later date. Pick meaningful names from the beginning.</p>
+<table>
+<thead>
+<tr>
+<th>Examples to avoid</th>
+<th>Use instead</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int d</td>
+<td>int elapsedTimeInDays</td>
+<td>Avoid single letter<br>abbreviations unless a counter<br>or expression. Be specific<br>about the measurement unit.</td>
+</tr>
+<tr>
+<td>int hp,<br>string tName,<br>int mvmtSpeed</td>
+<td>int healthPoints,<br>string teamName,<br>int movementSpeed</td>
+<td>Variable names reveal intent.<br>Make names searchable and<br>pronounceable.</td>
+</tr>
+<tr>
+<td>int getMovement<br>Speed</td>
+<td>int movementSpeed</td>
+<td>Use nouns. Reserve verbs<br>for methods unless it&#39;s a bool<br>(below).</td>
+</tr>
+<tr>
+<td>bool dead</td>
+<td>bool isDead,<br>bool isPlayerDead</td>
+<td>Booleans ask a question that<br>can be answered true or false.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Use pascal case (MyPropertyName) for public fields. Use camel case (myPrivateVariable) for private variables:</strong> For an alternative to public fields, use Properties with a public getter (see Formatting below).</li>
+<li><strong>Consider using prefixes or special encoding:</strong> Some guides suggest adding a prefix to private member variables with an underscore (_) to differentiate them from local variables. In our style guides we use prefixes for private member variables (m_), constants (k_), or static variables (s_), so the name can reveal more about the variable at a glance. For example, movementSpeed becomes m_movementSpeed.</li>
+</ul>
+<p>Mixing PascalCase with the prefix such as m_MovementSpeed is also an option but is generally less commonly used in modern C#.</p>
+<p>Alternatively, use the this keyword to distinguish between member and local variables in context and skip the prefix. Public fields and properties generally don&#39;t have prefixes. Local variables and parameters use camel case with no prefix.</p>
+<p>Many developers eschew these and rely on the editor instead. IDEs today support highlighting, color coding, and rich context.</p>
+<p>— <strong>Fields are automatically initialized to their default values:</strong> Default value is typically 0 for numeric types like int, while reference type fields (e.g., objects) are initialized to null by default, and bool fields are initialized to false by default. Given this, explicitly setting a field to its default value is generally unnecessary.</p>
+<p><img src="_page_14_Picture_0.jpeg" alt=""></p>
+<p>— <strong>Name constant variables with k_ as prefix and in PascalCase:</strong> This helps to distinguish constants from regular variables or properties, and makes the code easier to read and maintain.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: constants</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MathConstants</span>
+{
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> k_MaxItems = <span class="hljs-number">100</span>;
+}
+</code></pre><p>— <strong>Specify (or omit) access level modifiers consistently:</strong> If you leave off the access modifier, the compiler will assume the access level to be private. This works well, but be consistent in how you omit the default access modifier.</p>
+<p>MSFT guidelines recommended to explicitly specify private to make the access level clear and to avoid any ambiguity. Other guides argue you should drop redundant access specifiers (leave off &#39;private&#39; at type scope) and, similarly, drop redundant initializers (i.e. no &#39;= 0&#39; on the ints, &#39;= null&#39; on ref types, etc.). Remember that you&#39;ll need to use protected if you want this in a subclass later. We recommend to leave out things that are implicit and thus redundant (such as private) for simplicity if you agree that it doesn&#39;t negatively affect readability for you.</p>
+<p>— <strong>Favor readability over brevity:</strong> As <a href="https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions">this example</a> from the MSFT documentation shows, the property name CanScrollHorizontally is better than ScrollableX (an obscure reference to the X-axis).</p>
+<h4 id="-example-code-snippets-"><strong>Example code snippets</strong></h4>
+<p>The code snippets in this guide are non-functional and abbreviated. They&#39;re presented here to show style and formatting.</p>
+<p>You can also reference this <a href="https://github.com/thomasjacobsen-unity/Unity-Code-Style-Guide/blob/master/StyleExample.cs">example C# style sheet for Unity developers,</a> which is a modified version of <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/">Microsoft&#39;s Framework Design Guidelines.</a> This represents just one example of how you can set up your team&#39;s style guide.</p>
+<p>Review each rule in the example style guide and customize it to your team&#39;s preferences. The specifics of an individual rule are less important than having everyone agree to follow it consistently. When in doubt, rely on your team&#39;s own guide to settle any style disagreements.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: public and private variables are grouped together. </span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> DamageMultiplier = <span class="hljs-number">1.5f</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> MaxHealth;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> IsInvincible;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">bool</span> m_isDead;
+</code></pre><p><img src="_page_15_Picture_0.jpeg" alt=""></p>
+<pre><code><span class="hljs-keyword">private</span> <span class="hljs-keyword">float</span> m_currentHealth;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InflictDamage</span><span class="hljs-params">(<span class="hljs-keyword">float</span> damage, <span class="hljs-keyword">bool</span> isSpecialDamage)</span>
+</span>{
+ <span class="hljs-comment">// local variable</span>
+ <span class="hljs-keyword">int</span> totalDamage = damage;
+ <span class="hljs-comment">// local variable versus public member variable</span>
+ <span class="hljs-keyword">if</span> (isSpecialDamage)
+ {
+ totalDamage *= DamageMultiplier;
+ }
+ <span class="hljs-comment">// local variable versus private member variable</span>
+ <span class="hljs-keyword">if</span> (totalDamage &gt; _currentHealth)
+ {
+ <span class="hljs-comment">/// ...</span>
+ }
+}
+</code></pre><ul>
+<li><strong>Use one variable declaration per line:</strong> It&#39;s less compact, but enhances readability.</li>
+<li><strong>Avoid redundant names:</strong> If your class is called Player, you don&#39;t need to create member variables called PlayerScore or PlayerTarget. Trim them down to Score or Target.</li>
+<li>Drop redundant initializers (i.e. no &#39;= 0&#39; on the ints, &#39;= null&#39; on ref types, etc.).</li>
+<li><strong>Avoid jokes or puns:</strong> While they might elicit a chuckle now, the infiniteMonkeys or dudeWheresMyChar variables won&#39;t hold up after a few dozen reads, and more importantly, it violates our previous stated goal of naming revealing context.</li>
+<li><strong>While avoiding ambiguity and always looking for ways to improve readability, you can use var when the type is clear from the context:</strong> With good naming ambiguity should be less of an issue because variable names already convey the intent. Refactoring is simpler with var since it abstracts away the specific type, reducing the number of places where code needs to be updated when types change. In foreach loops, var ensures that the iteration variable matches the type provided by the enumerator. If you explicitly declare a mismatched type, the compiler may allow it, leading to runtime errors.</li>
+</ul>
+<pre><code><span class="hljs-comment">// EXAMPLE: good use of var</span>
+<span class="hljs-built_in">var</span> powerUps = <span class="hljs-literal">new</span> <span class="hljs-built_in">List</span>&lt;PowerUps&gt;();
+<span class="hljs-built_in">var</span> dictionary = <span class="hljs-literal">new</span> Dictionary&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">List</span>&lt;GameObject&gt;&gt;();
+<span class="hljs-comment">// AVOID: potential ambiguity</span>
+<span class="hljs-built_in">var</span> powerUps = PowerUpManager.GetPowerUps();
+</code></pre><p><span id="page-16-0"></span><img src="_page_16_Picture_0.jpeg" alt=""></p>
+<h4 id="enums">Enums</h4>
+<p>Enums are special value types defined by a set of named constants. By default, the constants are integers, counting up from 0.</p>
+<p>Use Pascal case for enum names and values. You can place public enums outside of a class to make them global. Use a singular noun for the enum name as it represents a single value from a set of possible values. They should have no prefix or suffix.</p>
+<p>Note: bitwise enums marked with the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.flagsattribute?view=net-5.0">System.FlagsAttribute</a> attribute are the exception to this rule. You typically pluralize these as they represent more than one type.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: enums use singular nouns</span>
+public <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">WeaponType</span>
+</span>{
+ Knife,
+ Gun,
+ RocketLauncher, 
+ BFG
+}
+public enum FireMode
+{
+ None = <span class="hljs-number">0</span>,
+ Single = <span class="hljs-number">5</span>,
+ Burst = <span class="hljs-number">7</span>,
+ Auto = <span class="hljs-number">8</span>, 
+}
+<span class="hljs-comment">// EXAMPLE: but a bitwise enum is plural (you can also use the 1 &lt;&lt; bitnum style)</span>
+[Flags] 
+public <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">AttackModes</span> 
+</span>{
+ <span class="hljs-comment">// Decimal // Binary</span>
+ None = <span class="hljs-number">0</span>, <span class="hljs-comment">// 000000</span>
+ Melee = <span class="hljs-number">1</span>, <span class="hljs-comment">// 000001</span>
+ Ranged = <span class="hljs-number">2</span>, <span class="hljs-comment">// 000010</span>
+ Special = <span class="hljs-number">4</span>, <span class="hljs-comment">// 000100</span>
+ MeleeAndSpecial = Melee | Special <span class="hljs-comment">// 000101</span>
+}
+</code></pre><p><span id="page-17-0"></span><img src="_page_17_Picture_0.jpeg" alt=""></p>
+<h4 id="classes-and-interfaces">Classes and interfaces</h4>
+<p>Follow these standard rules when naming your classes and interfaces:</p>
+<ul>
+<li><strong>Use Pascal case nouns or noun phrases for class names:</strong> This distinguishes type names from methods, which are named with verb phrases.</li>
+<li><strong>If you have a Monobehaviour in a file, the source file name must match:</strong> You may have other internal classes in the file, but only one Monobehaviour should exist per file.</li>
+<li><strong>Prefix interface names with a capital I:</strong> Follow this with an adjective that describes the functionality.</li>
+</ul>
+<pre><code><span class="hljs-comment">// EXAMPLE: Class formatting</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> ExampleClass : MonoBehaviour
+{
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> PublicField;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> MyStaticField;
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> m_packagePrivate;
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> m_myPrivate;
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> m_myPrivate;
+ <span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> m_myProtected;
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">()</span>
+ </span>{
+ }
+}
+<span class="hljs-comment">// EXAMPLE: Interfaces</span>
+<span class="hljs-keyword">public</span> interface IKillable
+{
+ <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Kill</span><span class="hljs-params">()</span></span>;
+}
+<span class="hljs-keyword">public</span> interface IDamageable&lt;T&gt;
+{
+ <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Damage</span><span class="hljs-params">(T damageTaken)</span></span>;
+}
+</code></pre><p><span id="page-18-0"></span><img src="_page_18_Picture_0.jpeg" alt=""></p>
+<h3 id="methods">Methods</h3>
+<p>In C#, every executed instruction is performed in the context of a method.</p>
+<p><strong>Note:</strong> &quot;function&quot; and &quot;method&quot; are often used interchangeably in Unity development. However, because you can&#39;t write a function without incorporating it into a class in C#, &quot;method&quot; is the accepted term.</p>
+<p>Methods perform actions, so apply these rules to name them accordingly:</p>
+<ul>
+<li><strong>Start the name with a verb or verb phrases:</strong> Add context if necessary. e.g. GetDirection, FindTarget, etc.</li>
+<li><strong>Use camel case for parameters:</strong> Format parameters passed into the method like local variables.</li>
+<li><strong>Methods returning bool should ask questions:</strong> Much like Boolean variables themselves, prefix methods with a verb if they return a true-false condition This phrases them in the form of a question, e.g. IsGameOver, HasStartedTurn.</li>
+</ul>
+<pre><code><span class="hljs-comment">// EXAMPLE: Methods start with a verb</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetInitialPosition</span><span class="hljs-params">(<span class="hljs-keyword">float</span> x, <span class="hljs-keyword">float</span> y, <span class="hljs-keyword">float</span> z)</span>
+</span>{
+ transform.position = <span class="hljs-keyword">new</span> Vector3(x, y, z);
+}
+<span class="hljs-comment">// EXAMPLE: Methods ask a question when they return bool</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">IsNewPosition</span><span class="hljs-params">(Vector3 currentPosition)</span>
+</span>{
+ <span class="hljs-keyword">return</span> (transform.position == newPosition);
+}
+</code></pre><h4 id="events-and-event-handlers">Events and event handlers</h4>
+<p>Events in C# implement the <a href="https://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. This software design pattern defines a relationship in which one object, the subject (or publisher), can notify a list of dependent objects called observers (or subscribers). Thus, the subject can broadcast state changes to its observers without tightly coupling the objects involved. You can learn more about using the observer and other design patterns in your Unity projects in the e-book <em><a href="https://unity.com/resources/design-patterns-solid-ebook?isGated=false">Level up your code</a>  <a href="https://unity.com/resources/design-patterns-solid-ebook?isGated=false">with design patterns and SOLID</a></em>.</p>
+<p>Several naming schemes exist for events and their related methods in the subject and observers. Try these practices:</p>
+<p>— <strong>Name the event with a verb phrase:</strong> Choose a name that communicates the state change accurately. Use the present or past participle to indicate events &quot;before&quot; or &quot;after.&quot; For example, specify &quot;OpeningDoor&quot; for an event before opening a door or &quot;DoorOpened&quot; for an event afterward.</p>
+<p><img src="_page_19_Picture_0.jpeg" alt=""></p>
+<p>— <strong>Use the System.Action delegate for events:</strong> In most cases, the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.action-1?view=net-5.0">Action<T></a> delegate can handle the events needed for gameplay. You may pass anywhere from 0 to 16 input parameters of different types with a return type of void. Using the predefined delegate saves code.</p>
+<p>Note: You can also use the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.eventhandler?view=net-5.0">EventHandler</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/system.eventhandler-1?view=net-5.0">EventHandler<TEventArgs></a> delegates. Agree as a team on how everyone will implement events.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: Events </span>
+<span class="hljs-comment">// using System.Action delegate</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> Action OpeningDoor; <span class="hljs-comment">// event before</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> Action DoorOpened; <span class="hljs-comment">// event after</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> Action&lt;<span class="hljs-keyword">int</span>&gt; PointsScored;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> Action&lt;CustomEventArgs&gt; ThingHappened;
+</code></pre><p>— <strong>Prefix the event raising method (in the subject) with &quot;On&quot;:</strong> The subject that invokes the event typically does so from a method prefixed with &quot;On,&quot; e.g. &quot;OnOpeningDoor&quot; or &quot;OnDoorOpened.&quot;</p>
+<pre><code><span class="hljs-comment">// raises the Event if you have subscribers</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnDoorOpened</span><span class="hljs-params">()</span>
+</span>{
+ DoorOpened?.Invoke();
+}
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnPointsScored</span><span class="hljs-params">(<span class="hljs-keyword">int</span> points)</span>
+</span>{
+ PointsScored?.Invoke(points);
+}
+</code></pre><p>— <strong>Consider prefixing the event handling method (in the observer) with the subject&#39;s name and underscore (_):</strong> If the subject is named &quot;GameEvents,&quot; your observers can have a method called &quot;GameEvents_OpeningDoor&quot; or &quot;GameEvents_DoorOpened.&quot;</p>
+<p>Note that this is called the &quot;event handling method&quot;, not to be confused with the EventHandler delegate.</p>
+<p><span id="page-20-0"></span><img src="_page_20_Picture_0.jpeg" alt=""></p>
+<p>— <strong>Create custom EventArgs only as necessary:</strong> If you need to pass custom data to your Event, create a new type of EventArgs, either inherited from <a href="https://docs.microsoft.com/en-us/dotnet/api/system.eventargs?view=net-5.0">System.EventArgs</a> or from a custom struct.</p>
+<pre><code><span class="hljs-comment">// define an EventArgs if needed</span>
+<span class="hljs-comment">// EXAMPLE: read-only, custom struct used to pass an ID and Color</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">struct</span> CustomEventArgs
+{
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> ObjectID { <span class="hljs-keyword">get</span>; }
+ <span class="hljs-keyword">public</span> Color Color { <span class="hljs-keyword">get</span>; }
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CustomEventArgs</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> objectId, Color color</span>)
+ </span>{
+ <span class="hljs-keyword">this</span>.ObjectID = objectId;
+ <span class="hljs-keyword">this</span>.Color = color;
+ }
+}
+</code></pre><h4 id="namespaces">Namespaces</h4>
+<p>Use <a href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/types/namespaces">namespaces</a> to ensure that your classes, interfaces, enums, etc. won&#39;t conflict with existing ones from other namespaces or the global namespace. Namespaces can also prevent conflicts with third-party assets from the Asset Store.</p>
+<p>When applying namespaces:</p>
+<ul>
+<li>Use PascalCase without special symbols or underscores.</li>
+<li>Add a using directive at the top of the file to avoid repeated typing of the namespace prefix.</li>
+<li>Create sub-namespaces as well. Use the dot(.) operator to delimit the name levels, allowing you to organize your scripts into hierarchical categories. For example, you can create MyApplication.GameFlow, MyApplication.AI, MyApplication.UI, and so on to hold different logical components of your game.</li>
+<li>Some prefer to have namespaces that reflect the folder structure of the project as having logically grouped related classes and components together, also makes it easier to find and understand the structure of the codebase.</li>
+</ul>
+<p><img src="_page_21_Picture_0.jpeg" alt=""></p>
+<pre><code><span class="hljs-keyword">namespace</span> <span class="hljs-title">Enemy</span> 
+{
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Controller1</span> : <span class="hljs-title">MonoBehaviour</span> 
+ {
+ ...
+ }
+
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Controller2</span> : <span class="hljs-title">MonoBehaviour</span> 
+ {
+ ...
+ }
+}
+</code></pre><p>In code, these classes are referred to as Enemy.Controller1 and Enemy.Controller2, respectively. Add a using line to save typing out the prefix:</p>
+<p>using Enemy;</p>
+<p>When the compiler finds the class names Controller1 and Controller2, it understands you mean Enemy.Controller1 and Enemy.Controller2.</p>
+<p>If the script needs to refer to classes with the same name from different namespaces, use the prefix to differentiate them. For instance, if you have a Controller1 and Controller2 class in the Player namespace, you can write out Player.Controller1 and PlayerController2 to avoid any conflicts. Otherwise, the compiler will report an error.</p>
+<h1 id="-span-id-page-22-0-span-formatting"><span id="page-22-0"></span>Formatting</h1>
+<h3 id="-if-you-want-your-code-to-be-easy-to-write-make-it-easy-to-read-"><em>If you want your code to be easy to write, make it easy to read.</em></h3>
+<p>– Robert C. Martin, author of <em>Clean Code and Agile Software Development</em></p>
+<p>The less you think about formatting, the more you can work on something else.</p>
+<p>Along with naming, formatting helps reduce guesswork and improves code clarity. By following a standardized style guide, code reviews become less about how the code looks and more about what it does.</p>
+<p>Omit, expand, or modify these example rules to fit your team&#39;s needs.</p>
+<p>In all cases, consider how your team will implement each formatting rule and then have everyone apply it uniformly. Refer back to your team&#39;s style to resolve any discrepancies.</p>
+<p>Consider each of the following code formatting suggestions when setting up your Unity dev style guide.</p>
+<p><span id="page-23-0"></span><img src="_page_23_Picture_0.jpeg" alt=""></p>
+<h3 id="properties">Properties</h3>
+<p>A property provides a flexible mechanism to read, write, or compute class values. Properties behave as if they were public member variables, but in fact they&#39;re special methods called <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-properties">accessors.</a> Each property has a get and set method to access a private field, called a <a href="https://docs.microsoft.com/en-us/ef/core/modeling/backing-field?tabs=data-annotations">backing</a>  <a href="https://docs.microsoft.com/en-us/ef/core/modeling/backing-field?tabs=data-annotations">field</a>.</p>
+<p>In this way, the property <a href="https://en.wikipedia.org/wiki/Encapsulation_(computer_programming">encapsulates</a>#Information_hiding) the data, hiding it from unwanted changes by the user or external objects. The getter and setter each have their own access modifier, allowing your property to be read-write, read-only, or write-only.</p>
+<p>You can also use the accessors to validate or convert the data (e.g., verify that the data fits your preferred format or change a value to a particular unit).</p>
+<p>The syntax for properties can vary, so your style guide should define how to format them. Use these tips to keep properties consistent in your code:</p>
+<p>— <strong>Use expression-bodied properties for single line read-only properties</strong> (=&gt;): This returns the private backing field.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: expression bodied properties</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PlayerHealth</span>
+</span>{
+ <span class="hljs-comment">// the private backing field</span>
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> m_maxHealth;
+ <span class="hljs-comment">// read-only, returns backing field</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> MaxHealth =&gt; m_maxHealth;
+ <span class="hljs-comment">// equivalent to:</span>
+ <span class="hljs-comment">// public int MaxHealth { get; private set; }</span>
+}
+</code></pre><p>— <strong>Everything else uses the older</strong> { get; set; } <strong>syntax:</strong> If you just want to expose a public property without specifying a backing field, use the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties">Auto-Implemented property</a>.</p>
+<p>Apply the expression-bodied syntax for the set and get accessors.</p>
+<p>Remember to make the setter private if you don&#39;t want to give write access. Align the closing with the opening brace for multi-line code blocks.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: expression bodied properties</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PlayerHealth</span>
+{
+ <span class="hljs-comment">// backing field</span>
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> m_maxHealth;
+ <span class="hljs-comment">// explicitly implementing getter and setter</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> MaxHealth
+ {
+ <span class="hljs-keyword">get</span> =&gt; m_maxHealth;
+ <span class="hljs-keyword">set</span> =&gt; m_maxHealth = <span class="hljs-keyword">value</span>;
+ }
+ <span class="hljs-comment">// write-only (not using backing field)</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Health { <span class="hljs-keyword">private</span> <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+ <span class="hljs-comment">// write-only, without an explicit setter</span>
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SetMaxHealth</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> newMaxValue</span>) </span>=&gt; _maxHealth = newMaxValue;
+}
+</code></pre><p>— While you can also use functions to expose private data as in our example below, it&#39;s generally recommended to use properties for simple get/set operations. For operations involving complex logic or computation, methods are generally recommended.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: expression bodied properties</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PlayerHealth</span>
+</span>{
+ <span class="hljs-comment">// backing field</span>
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> m_maxHealth;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> GetMaxHealth
+ {
+ <span class="hljs-keyword">return</span> m_maxHealth;
+ }
+}
+</code></pre><h3 id="-span-id-page-25-0-span-serialization"><span id="page-25-0"></span>Serialization</h3>
+<p>Script serialization is the automatic process of transforming data structures or object states into a format that Unity can store and reconstruct later. For performance reasons, Unity handles serialization differently than in other programming environments.</p>
+<p>Serialized fields appear in the Inspector, but you cannot serialize static, constant, or readonly fields. They must be either public or tagged with the [SerializeField] attribute. Unity only serializes certain field types, so refer to the <a href="https://docs.unity3d.com/Manual/script-serialization.html">documentation page</a> for the complete set of serialization rules.</p>
+<p>Observe a few basic guidelines when working with serialized fields:</p>
+<ul>
+<li><strong>Use the</strong> [SerializeField] <strong>attribute:</strong> The SerializeField attribute can work with private or protected variables to make them appear in the Inspector. This encapsulates the data better than marking the variable public and prevents an external object from overwriting its values.</li>
+<li><strong>Use the Range attribute to set minimum and maximum values:</strong> The [Range(min, max)] attribute is handy if you want to limit what the user can assign to a numeric field. It also conveniently represents the field as a slider in the Inspector.</li>
+<li><strong>Group data in serializable classes or structs to clean up the Inspector:</strong> Define a public class or struct and mark it with the [Serializable] attribute. Define public variables for each type you want to expose in the Inspector.</li>
+</ul>
+<pre><code><span class="hljs-comment">// EXAMPLE: a serializable class for PlayerStats</span>
+<span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> UnityEngine;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Player</span> : <span class="hljs-title">MonoBehaviour</span>
+{
+ [Serializable]
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">struct</span> PlayerStats
+ {
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> MovementSpeed;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> HitPoints;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> HasHealthPotion;
+ }
+<span class="hljs-comment">// EXAMPLE: The private field is visible in the Inspector</span>
+ [SerializeField]
+ <span class="hljs-keyword">private</span> PlayerStats m_stats;
+}
+</code></pre><p>Reference this serializable class from another class. The resulting variables appear within collapsible units in the Inspector.</p>
+<p><span id="page-26-0"></span></p>
+<table>
+<thead>
+<tr>
+<th>namespace MyApplication</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public class Player : MonoBehaviour<br>1<br>[Serializable]<br>public struct PlayerStats</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>public int MovementSpeed;</td>
+<td>O Inspector</td>
+<td></td>
+<td></td>
+<td></td>
+<td>ക :</td>
+</tr>
+<tr>
+<td>public int HitPoints;<br>public bool HasHealthPotion;</td>
+<td>D<br>Player</td>
+<td></td>
+<td></td>
+<td>Static ▼</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Tag Untagged</td>
+<td></td>
+<td>Layer Default<br>&gt;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2<br>Transform<br>&gt;</td>
+<td></td>
+<td></td>
+<td>@ 花</td>
+<td></td>
+</tr>
+<tr>
+<td>[SerializeField]</td>
+<td>Position</td>
+<td>× 0</td>
+<td>Y O</td>
+<td>Z O</td>
+<td></td>
+</tr>
+<tr>
+<td>private PlayerStats stats;</td>
+<td>Rotation</td>
+<td>× 0</td>
+<td>Y O</td>
+<td>Z O</td>
+<td></td>
+</tr>
+<tr>
+<td>}</td>
+<td>Scale</td>
+<td>× 1</td>
+<td>Y 1</td>
+<td>Z 1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>#<br>V</td>
+<td>Player (Script)</td>
+<td></td>
+<td>0 花</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Script</td>
+<td>Player</td>
+<td></td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td>▼ Stats</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Movement Speed</td>
+<td>15</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Hit Points</td>
+<td>100</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Has Health Potion</td>
+<td>&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A serializable class or struct can help organize the Inspector.</p>
+<h3 id="brace-or-indentation-style">Brace or indentation style</h3>
+<p>There are two common indentation styles in C#:</p>
+<ul>
+<li>The <a href="https://en.wikipedia.org/wiki/Indentation_style#Allman_style">Allman style</a> places the opening curly braces on a new line, also known as the BSD style (from BSD Unix).</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Indentation_style#K&amp;R_style">K&amp;R style</a>, or &quot;one true brace style,&quot; keeps the opening brace on the same line as the previous header.</li>
+</ul>
+<pre><code><span class="hljs-comment">// EXAMPLE: Allman or BSD style puts opening brace on a new line.</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DisplayMouseCursor</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> showMouse)</span> 
+</span>{
+ <span class="hljs-keyword">if</span> (!showMouse)
+ {
+ Cursor.lockState = CursorLockMode.Locked;
+ Cursor.visible = <span class="hljs-literal">false</span>;
+ }
+ <span class="hljs-keyword">else</span>
+ {
+</code></pre><pre><code> Cursor.lockState = CursorLockMode.None;
+ Cursor.visible = <span class="hljs-literal">true</span>;
+ }
+}
+<span class="hljs-comment">// EXAMPLE: K&amp;R style puts opening brace on the previous line.</span>
+void DisplayMouseCursor(<span class="hljs-built_in">bool</span> showMouse){
+ if (!showMouse) {
+ Cursor.lockState = CursorLockMode.Locked;
+ Cursor.visible = <span class="hljs-literal">false</span>;
+ }
+ else {
+ Cursor.lockState = CursorLockMode.None;
+ Cursor.visible = <span class="hljs-literal">true</span>;
+ }
+}
+</code></pre><p>There are variations on these <a href="https://en.wikipedia.org/wiki/Indentation_style">indentation styles</a> as well. The examples in this guide use the Allman style from the <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/">Microsoft Framework Design Guidelines.</a> Regardless of which one you choose as a team, make sure everyone follows the same indentation and brace style.</p>
+<p>Try these tips:</p>
+<p>— <strong>Decide on a uniform indentation:</strong> This is typically four or two spaces. Get everyone on your team to agree on a setting in your Editor preferences without igniting a <a href="https://thenewstack.io/spaces-vs-tabs-a-20-year-debate-and-now-this-what-the-hell-is-wrong-with-go/">tabs versus</a>  <a href="https://thenewstack.io/spaces-vs-tabs-a-20-year-debate-and-now-this-what-the-hell-is-wrong-with-go/">spaces flame war</a>. Note that Visual Studio provides the option to convert tabs to spaces.</p>
+<table>
+<thead>
+<tr>
+<th>Search Options (Ctrl+E)</th>
+<th>P</th>
+<th>Indenting</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General<br>Advanced<br>File Extension<br>&gt; All Languages<br>▷ Basic<br>A C#<br>General<br>Scroll Bars<br>Tabs<br>Advanced<br>Code Style<br>IntelliSense<br>▷ C/C++</td>
+<td>&gt;</td>
+<td>O None<br>O Block<br>● Smart<br>Tab<br>বাঁ<br>Tab size:<br>Indent size:<br>বা<br>● Insert spaces<br>O Keep tabs<br>Adaptive formatting may override your custom tab settings. You can turn off<br>adaptive formatting under Text Editor &gt; Advanced.</td>
+<td></td>
+</tr>
+<tr>
+<td>▷ Plain Text<br>D XML<br>Debugging<br>△</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NuGet Package Manager<br>△</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Test<br>△</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Text Templating<br>&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tools for Unity<br>△</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&gt; Web Performance Test Tools</td>
+<td>V</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>In Visual Studio (Windows), navigate to Tools &gt; Options &gt; Text Editor &gt; C# &gt; Tabs.</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>------------------------------------------------------------------------------------</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+</tr>
+</tbody>
+</table>
+<p>Tabs settings in Visual Studio</p>
+<p>On Visual Studio for Mac, navigate to <strong>Preferences &gt; Source Code &gt; C# Source Code</strong>. Select the Text Style to adjust the settings.</p>
+<table>
+<thead>
+<tr>
+<th>00</th>
+<th>Preferences</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Android</td>
+<td>C# source code</td>
+</tr>
+<tr>
+<td>ios</td>
+<td></td>
+</tr>
+<tr>
+<td>▼ Publishing</td>
+<td>Policy: Default</td>
+</tr>
+<tr>
+<td>Apple Developer Accounts</td>
+<td></td>
+</tr>
+<tr>
+<td>▼ Text Editor</td>
+<td>Text Style C# Format</td>
+</tr>
+<tr>
+<td>Ø General</td>
+<td>Use default settings from &#39;Text file&#39;</td>
+</tr>
+<tr>
+<td>國 Markers and Rulers</td>
+<td></td>
+</tr>
+<tr>
+<td>► @ Behavior</td>
+<td>--<br>Desired file width:  80<br>columns</td>
+</tr>
+<tr>
+<td>目 IntelliSense</td>
+<td>Line endings:   Native</td>
+</tr>
+<tr>
+<td>J Color Theme</td>
+<td></td>
+</tr>
+<tr>
+<td>… Code Snippets</td>
+<td>Whitespace</td>
+</tr>
+<tr>
+<td>് Language Bundles</td>
+<td>1 D<br>Tab width:<br>पै</td>
+</tr>
+<tr>
+<td>&gt; @ Source Analysis</td>
+<td>Indent width:   4</td>
+</tr>
+<tr>
+<td>ি XML Schemas</td>
+<td></td>
+</tr>
+<tr>
+<td>T Source Code</td>
+<td>Convert tabs to spaces<br>&gt;</td>
+</tr>
+<tr>
+<td>.NET Naming Policies</td>
+<td>Allow tabs after non-tabs<br>V</td>
+</tr>
+<tr>
+<td>▼ Code Formatting</td>
+<td></td>
+</tr>
+<tr>
+<td>િ XML document</td>
+<td>Remove trailing whitespace<br>&gt;</td>
+</tr>
+<tr>
+<td>鲁 Text file</td>
+<td></td>
+</tr>
+<tr>
+<td>{} C# source code</td>
+<td></td>
+</tr>
+<tr>
+<td>oss CSS</td>
+<td></td>
+</tr>
+<tr>
+<td>C HTML</td>
+<td></td>
+</tr>
+<tr>
+<td>O JSON</td>
+<td></td>
+</tr>
+<tr>
+<td>ಟ್ಟಾ] LESS, CSS document</td>
+<td></td>
+</tr>
+<tr>
+<td>്ച്ചി SCSS, CSS document</td>
+<td></td>
+</tr>
+<tr>
+<td>ි F # files</td>
+<td></td>
+</tr>
+<tr>
+<td>#] Standard Header</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Convert tabs to spaces to make indentation uniform.</p>
+<p><img src="_page_29_Picture_0.jpeg" alt=""></p>
+<p>— <strong>Where possible, don&#39;t omit braces, even for single-line statements:</strong> This increases consistency, keeping your code easier to read and maintain. In this example, the braces clearly separate the action, DoSomething, from the loop.</p>
+<p>If later you need to add a Debug line or to run DoSomethingElse, the braces will already be in place. Some programmers argue that keeping the clause on a separate line allows you to add a breakpoint easily.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: keep braces for clarity...</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) { DoSomething(i); }
+<span class="hljs-comment">// … and/or keep the clause on a separate line.</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++)
+{
+ DoSomething(i);
+}
+<span class="hljs-comment">// AVOID: omitting braces</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) DoSomething(i);
+</code></pre><p>— <strong>Don&#39;t remove braces from nested multi-line statements:</strong> Removing braces in this case won&#39;t throw an error, but can be confusing. Apply braces for clarity, even if they are optional. Braces also ensure that modifications, such as adding new logic, can be done safely without needing to refactor the surrounding structure.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: keep braces for clarity</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)
+{
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++)
+ {
+ ExampleAction();
+ }
+}
+<span class="hljs-comment">// AVOID: removing braces from nested multi-line statements</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++)
+ ExampleAction();
+</code></pre><p><span id="page-30-0"></span><img src="_page_30_Picture_0.jpeg" alt=""></p>
+<p>— <strong>Standardize your switch statements:</strong> It&#39;s generally advisable to replace longer if-else chains with a switch statement for better readability. Here is one example where you indent the case statements. It&#39;s generally recommended to include a default case as well. Even if the default case is not needed (for example, in cases where all possibilities are covered), including one ensures that the code is prepared to handle unexpected values.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: indent cases from the switch statement</span>
+<span class="hljs-keyword">switch</span> (someExpression) 
+{
+ <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+ DoSomething();
+ <span class="hljs-keyword">break</span>;
+ <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+ DoSomethingElse();
+ <span class="hljs-keyword">break</span>;
+ <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: 
+ <span class="hljs-keyword">int</span> n = 1;
+ DoAnotherThing(n);
+ <span class="hljs-keyword">break</span>;
+ <span class="hljs-keyword">default</span>:
+ // Handle unexpected or <span class="hljs-keyword">default</span> <span class="hljs-keyword">case</span>
+ <span class="hljs-keyword">break</span>;
+}
+</code></pre><h2 id="what-is-editorconfig-">What is EditorConfig?</h2>
+<p>Do you have multiple developers working on the same project with different editors and IDEs? Consider using an <strong><a href="https://docs.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2019">EditorConfig</a></strong> file.</p>
+<p>The EditorConfig file can help you define a coding style that works across your entire team. Many IDEs, like Visual Studio and Rider, come bundled with native support and do not require a separate plugin.</p>
+<p><a href="https://editorconfig.org">EditorConfig</a> files are easily readable and work with version control systems. You can see an <a href="https://editorconfig.org/#example-file">example file here</a>. The code styling from EditorConfig travels with your code and can enforce coding styles even outside of Visual Studio.</p>
+<p>EditorConfig settings take precedence over the global Visual Studio text editor settings. Your personal editor preferences still apply whenever you&#39;re working in a codebase without a <strong>.editorconfig</strong> file, or when the <strong>.editorconfig</strong> file doesn&#39;t override a particular setting.</p>
+<p>See the GitHub repo for some <a href="https://github.com/editorconfig/editorconfig/wiki/Projects-Using-EditorConfig">real-world samples</a>.</p>
+<h3 id="-span-id-page-31-0-span-horizontal-spacing"><span id="page-31-0"></span>Horizontal spacing</h3>
+<p>Something as simple as spacing can enhance your code&#39;s appearance on-screen. Your personal formatting preferences can vary, but try the following suggestions to improve readability:</p>
+<p>— <strong>Add spaces to decrease code density:</strong> The extra whitespace can give a sense of visual separation between parts of a line improving readability.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: add spaces to make lines easier to read</span>
+<span class="hljs-selector-tag">for</span> (int i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) { <span class="hljs-selector-tag">DoSomething</span>(i); }
+<span class="hljs-comment">// AVOID: no spaces</span>
+<span class="hljs-selector-tag">for</span>(inti=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">100</span>;i++){<span class="hljs-selector-tag">DoSomething</span>(i);}
+</code></pre><p>— <strong>Use a single space after a comma between function arguments.</strong></p>
+<pre><code><span class="hljs-comment">// EXAMPLE: single space after comma between arguments</span>
+CollectItem(myObject, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// AVOID: leaving out spacing</span>
+</code></pre><pre><code>CollectItem(<span class="hljs-name">myObject</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)<span class="hljs-comment">;</span>
+</code></pre><p>— <strong>Don&#39;t add a space after the parenthesis and function arguments.</strong></p>
+<pre><code>// EXAMPLE: no space after the parenthesis <span class="hljs-keyword">and</span> <span class="hljs-keyword">function</span> <span class="hljs-title">arguments</span>
+DropPowerUp(myPrefab, 0, 1);
+</code></pre><p>//AVOID: DropPowerUp( myPrefab, 0, 1 );</p>
+<p>— <strong>Don&#39;t use spaces between a function name and parenthesis</strong>.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: omit spaces between a function name and parenthesis.</span>
+<span class="hljs-function"><span class="hljs-title">DoSomething</span><span class="hljs-params">()</span></span>
+<span class="hljs-comment">// AVOID</span>
+</code></pre><p>DoSomething ()</p>
+<p>— <strong>Avoid spaces inside brackets.</strong></p>
+<pre><code><span class="hljs-comment">// EXAMPLE: omit spaces inside brackets</span>
+x = dataArray[<span class="hljs-keyword">index</span>];
+<span class="hljs-comment">// AVOID</span>
+x = dataArray[ <span class="hljs-keyword">index</span> ];
+</code></pre><p><img src="_page_32_Picture_0.jpeg" alt=""></p>
+<p>— <strong>Use a single space before flow control conditions:</strong> Add a space between the flow comparison operator and the parentheses.</p>
+<p>// EXAMPLE: space before condition; separate parentheses with a space. while (x == y) // AVOID while(x==y)</p>
+<p>— <strong>Use a single space before and after comparison operators.</strong></p>
+<pre><code>// EXAMPLE: <span class="hljs-literal">space</span> <span class="hljs-keyword">before</span> condition; separate parentheses <span class="hljs-keyword">with</span> <span class="hljs-keyword">a</span> <span class="hljs-literal">space</span>.
+<span class="hljs-keyword">if</span> (x == y)
+</code></pre><p>// AVOID</p>
+<p>if (x==y)</p>
+<ul>
+<li><strong>Keep lines short. Consider horizontal whitespace:</strong> Decide on a standard line width (80- 120 characters). Break a long line into smaller statements rather than letting it overflow.</li>
+<li><strong>Maintain indentation/hierarchy:</strong> Indent your code to increase legibility.</li>
+<li><strong>Don&#39;t use column alignment unless needed for readability:</strong> This type of spacing aligns the variables but can make it difficult to pair the type with the name.</li>
+</ul>
+<p>Column alignment, however, can be useful for bitwise expressions or structs with a lot of data. Just be aware that it may create more work for you to maintain the column alignment as you add more items. Some auto-formatters might also change which part of the column gets aligned.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: One space between type and name</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> Speed = <span class="hljs-number">12f</span>;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> Gravity = <span class="hljs-number">-10</span>f;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> JumpHeight = <span class="hljs-number">2f</span>;
+ <span class="hljs-keyword">public</span> Transform GroundCheck;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> GroundDistance = <span class="hljs-number">0.4f</span>;
+ <span class="hljs-keyword">public</span> LayerMask GroundMask;
+<span class="hljs-comment">// AVOID: column alignment</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> Speed = <span class="hljs-number">12f</span>;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> Gravity = <span class="hljs-number">-10</span>f;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> JumpHeight = <span class="hljs-number">2f</span>;
+ <span class="hljs-keyword">public</span> Transform GroundCheck;
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> GroundDistance = <span class="hljs-number">0.4f</span>;
+ <span class="hljs-keyword">public</span> LayerMask GroundMask;
+</code></pre><h3 id="-span-id-page-33-0-span-vertical-spacing"><span id="page-33-0"></span>Vertical spacing</h3>
+<p>You can use the vertical spacing to your advantage as well. Keep related parts of the script together and use blank lines to your advantage. Try these suggestions to organize your code from top to bottom:</p>
+<ul>
+<li><strong>Group dependent and/or similar methods together:</strong> Code needs to be logical and coherent. Keep methods that do the same thing next to one another, so someone reading your logic doesn&#39;t have to jump around the file.</li>
+<li><strong>Use the vertical whitespace to your advantage to separate distinct parts of your class</strong>: For example, you can add two blank lines between:<ul>
+<li>Variable declarations and methods</li>
+<li>Classes and Interfaces</li>
+<li>if-then-else blocks (if it helps readability)</li>
+</ul>
+</li>
+</ul>
+<p>Keep this to a minimum and note on your style guide where applicable.</p>
+<h4 id="regions">Regions</h4>
+<p>The #region directive enables you to collapse and hide sections of code in C# files, making large files more manageable and easier to read.</p>
+<p>However, if you follow the general advice for Classes from this guide, your class size should be manageable and the #region directive superfluous. Break your code into smaller classes instead of hiding code blocks behind regions. You will be less inclined to add a region if the source file is short.</p>
+<p><strong>Note:</strong> Many developers consider <a href="https://softwareengineering.stackexchange.com/questions/53086/are-regions-an-antipattern-or-code-smell">regions to be code smells or anti-patterns.</a> Decide as a team on which side of the debate you fall.</p>
+<h2 id="code-formatting-in-visual-studio">Code formatting in Visual Studio</h2>
+<p>Don&#39;t despair if these formatting rules seem overwhelming. Modern IDEs make it efficient to set up and enforce them. You can create a template of formatting rules and then convert your project files at once.</p>
+<p>To set up formatting rules for the script editor:</p>
+<p>— In Visual Studio (Windows), navigate to <strong>Tools &gt; Options</strong>. Locate <strong>Text Editor &gt; C# &gt; Code Style Formatting</strong>.</p>
+<p>Use the settings to modify the General, Indentation, New Lines, Spacing, and Wrapping options.</p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search Options (Ctrl+E)</td>
+<td>8</td>
+<td>Your .editorconfig file might overide the local settings configured on this page which only apply to your machine. To configure these settings to<br>travel with your solution use EditorConfig files. More info Learn more</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>General<br>Build And Run</td>
+<td>&lt;</td>
+<td>Generate .editorconfig file from settings</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Locations<br>Performance</td>
+<td></td>
+<td>Description</td>
+<td>Preference</td>
+<td>Severity</td>
+<td></td>
+</tr>
+<tr>
+<td>SDK-Style Projects</td>
+<td></td>
+<td>&#39;this.&#39; preferences:</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VB Defaults<br>VC++ Project Settings</td>
+<td></td>
+<td>Qualify field access with &#39;this&#39;</td>
+<td>Do not prefer &#39;this.&quot;</td>
+<td>O Refactoring Only<br>V</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>Source Control</td>
+<td></td>
+<td>Qualify property access with &#39;this</td>
+<td>Do not prefer this.</td>
+<td>O Refactoring Only</td>
+<td>V</td>
+</tr>
+<tr>
+<td>D Work Items<br>Text Editor</td>
+<td></td>
+<td>Qualify method access with &#39;this&#39;</td>
+<td>Do not prefer &#39;this.</td>
+<td>( ) Refactoring Only</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>General</td>
+<td></td>
+<td>Qualify event access with &#39;this&#39;</td>
+<td>Do not prefer &#39;this.</td>
+<td>&gt;<br>( ) Refactoring Only</td>
+<td></td>
+</tr>
+<tr>
+<td>Advanced<br>File Extension</td>
+<td></td>
+<td>predefined type preferences:</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>All Languages</td>
+<td></td>
+<td></td>
+<td></td>
+<td>O Refactoring Only</td>
+<td></td>
+</tr>
+<tr>
+<td>&amp; Basic</td>
+<td></td>
+<td>For locals, parameters and members</td>
+<td>Prefer predefined type</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4 C#</td>
+<td></td>
+<td>For member access expressions</td>
+<td>Prefer predefined type</td>
+<td>&gt;<br>( ) Refactoring Only</td>
+<td></td>
+</tr>
+<tr>
+<td>General<br>Scroll Bars</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tabs</td>
+<td></td>
+<td>capacity = 0;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Advanced</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Code Style</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>General</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Formatting</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>General</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Indentation</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>New Lines</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Spacing</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wrapping</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Naming<br>IntelliSense</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>▷ C/C++<br>D Plain Text</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D XMI</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>OK</td>
+<td>Cancel</td>
+</tr>
+</tbody>
+</table>
+<p>Code style formatting options</p>
+<h4 id="-in-visual-studio-for-mac-select-visual-studio-preferences-then-navigate-to-source-code-code-formatting-c-source-code-">— In Visual Studio for Mac, select <strong>Visual Studio &gt; Preferences,</strong> then navigate to <strong>Source Code &gt; Code Formatting &gt; C# source code</strong>.</h4>
+<p>Select the Policy at the top. Then set your spacing and indentation in the Text Style tab. In the C# Format tab, adjust the Indentation, New Lines, Spacing, and Wrapping settings.</p>
+<p><img src="_page_34_Picture_5.jpeg" alt=""></p>
+<p>The Preview window shows off your style guide choices.</p>
+<p>If at any time you want to force your script file to conform to the style guide:</p>
+<ul>
+<li>In Visual Studio (Windows), go to <strong>Edit &gt; Advanced &gt; Format Document</strong> (<strong>Ctrl + K, Ctrl + D</strong> hotkey chord). If you want only to format white spaces and tab alignment, you can also use Run Code Cleanup (<strong>Ctrl + K , Ctrl + E</strong>) at the bottom of the editor.</li>
+<li>In Visual Studio for Mac, go to <strong>Edit &gt; Format Document</strong> (<strong>Ctrl + I</strong> hotkey)</li>
+</ul>
+<p>On Windows, you can also share your editor settings from <strong>Tools &gt; Import and Export Settings</strong>. Export a file with the style guide&#39;s C# code formatting and then have every team member import that file.</p>
+<p><img src="_page_35_Figure_5.jpeg" alt=""></p>
+<p>Visual Studio makes it easy to follow the style guide. Formatting then becomes as simple as using a hotkey.</p>
+<p><img src="_page_36_Picture_0.jpeg" alt=""></p>
+<p><strong>Note:</strong> You can configure an <a href="https://editorconfig.org">EditorConfig</a> file (see above) instead of importing and exporting Visual Studio settings. Doing this allows you to share formatting more easily across different IDEs, and it has the added benefit of working with version control. See the <a href="https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options">.NET code style rule options</a> for more information.</p>
+<p>Though this isn&#39;t specific to clean code, be sure to check out this <a href="https://www.youtube.com/watch?v=MBWc4oRBwiE">GDC session, Visual</a>  <a href="https://www.youtube.com/watch?v=MBWc4oRBwiE">Studio tips &amp; tricks to boost your productivity.</a> Clean code is much easier to format and refactor if you apply these productivity tips.</p>
+<p>To set up an .editorconfig file in Visual Studio Code, follow these steps:</p>
+<ul>
+<li><ol>
+<li>In the root directory of your project, create a new file named .editorconfig.</li>
+</ol>
+</li>
+<li><ol>
+<li>Open the .editorconfig file and add your desired configuration settings. Here&#39;s an example configuration for C#:</li>
+</ol>
+</li>
+</ul>
+<pre><code><span class="hljs-comment"># top-most EditorConfig file</span>
+<span class="hljs-attr">root</span> = <span class="hljs-literal">true</span>
+<span class="hljs-comment"># Unix-style newlines with a newline ending every file</span>
+<span class="hljs-section">[*]</span>
+<span class="hljs-attr">end_of_line</span> = lf
+<span class="hljs-attr">insert_final_newline</span> = <span class="hljs-literal">true</span>
+<span class="hljs-comment"># 4 space indentation</span>
+<span class="hljs-section">[*.cs]</span>
+<span class="hljs-attr">indent_style</span> = space
+<span class="hljs-attr">indent_size</span> = <span class="hljs-number">4</span>
+<span class="hljs-attr">charset</span> = utf-<span class="hljs-number">8</span>
+<span class="hljs-attr">trim_trailing_whitespace</span> = <span class="hljs-literal">true</span>
+<span class="hljs-comment"># Tab indentation for Makefiles</span>
+<span class="hljs-section">[Makefile]</span>
+<span class="hljs-attr">indent_style</span> = tab
+<span class="hljs-comment"># Specific settings for JSON files</span>
+<span class="hljs-section">[*.json]</span>
+<span class="hljs-attr">indent_style</span> = space
+<span class="hljs-attr">indent_size</span> = <span class="hljs-number">2</span>
+</code></pre><h2 id="-span-id-page-37-0-span-classes"><span id="page-37-0"></span>Classes</h2>
+<p><em>No one in the brief history of computing has ever written a piece of perfect software. It&#39;s unlikely that you&#39;ll be the first.</em></p>
+<p>– Andy Hunt, author of <em>The Pragmatic Programmer</em></p>
+<p>According to Robert C. Martin&#39;s <em>Clean Code</em>, the first rule of classes is that they should be small. The second rule is they should be even smaller than that.</p>
+<p>Limiting the size of each class makes it more focused and cohesive. It&#39;s easy to keep adding on top of an existing class until it overextends with functionality. Instead make a conscious effort to keep the classes short. Big, bloated classes become difficult to read and troubleshoot.</p>
+<h4 id="the-newspaper-metaphor">The newspaper metaphor</h4>
+<p>Imagine the source code of a class as a news article. You start reading from the top, where the headline and byline catch your eye. The lead-in paragraph gives you a rough summary. Then you glean more details as you continue downward.</p>
+<p><span id="page-38-0"></span>Journalists call this the <a href="https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism">inverted pyramid.</a>) The broad strokes of most newsworthy items appear at the beginning. You only get the story&#39;s nuances as you read to the end.</p>
+<p>Your class should also follow this basic pattern. Organize top-down and think of your functions as forming a hierarchy. Some methods serve a higher-level and lay the groundwork for the big picture. Put these first. Then, place lower-level functions with implementation details later.</p>
+<p>For example, you might make a method called ThrowBall that references other methods, SetInitialVelocity and CalculateTrajectory. Keep ThrowBall first, since that describes the main action. Then, add the supporting methods below it.</p>
+<p>Though each news article is short, a newspaper or news website will have many such collected stories. When taken together, the articles comprise a unified, functional whole. Think of your Unity project in the same way. It has numerous classes that must come together to form a larger, yet coherent, application.</p>
+<h2 id="class-organization">Class organization</h2>
+<p>Each class will need some standardization. Group class members into sections to organize them:</p>
+<ul>
+<li>Fields</li>
+<li>Properties</li>
+<li>Events / Delegates</li>
+<li>Monobehaviour Methods (Awake, Start, OnEnable, OnDisable, OnDestroy, etc.)</li>
+<li>Public Methods</li>
+<li>Private Methods</li>
+</ul>
+<p>Recall the recommended class naming rules in Unity: the source file name must match the name of the Monobehaviour in the file. You might have other internal classes in the file, but only one Monobehaviour should exist per file unless separated by namespaces.</p>
+<h3 id="-span-id-page-39-0-span-single-responsibility-principle"><span id="page-39-0"></span>Single-responsibility principle</h3>
+<p>Remember the goal is to keep each class short. In software design, the <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">single-responsibility</a>  <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">principle</a> guides you toward simplicity.</p>
+<p>The idea is that each module, class, or function is responsible for one thing. Suppose you want to build a game of <em>Pong</em>. You might start with classes for a paddle, a ball, and a wall.</p>
+<p><img src="_page_39_Picture_4.jpeg" alt=""></p>
+<p>Fancy a game of <em>Pong</em>?</p>
+<p>For example, a Paddle class might need to:</p>
+<ul>
+<li>Store basic data about how fast it can move</li>
+<li>Check keyboard input</li>
+<li>Move the paddle in response</li>
+<li>Play a sound when colliding with a ball</li>
+</ul>
+<p><img src="_page_40_Picture_0.jpeg" alt=""></p>
+<p>Because the game design is simple, you can incorporate all of these things into a basic Paddle class. In fact, it&#39;s entirely possible to create one Monobehaviour that does everything you need.</p>
+<p><img src="_page_40_Figure_2.jpeg" alt=""></p>
+<p>One Monobehaviour doing everything</p>
+<p>However, keeping everything as part of one class, even a small one, complicates the design by mixing responsibilities. The data intertwines with the input, while the class needs to apply logic to both. Contrary to the KISS principle, you&#39;ve taken a few simple things and entangled them.</p>
+<p>Instead, break your Paddle class into smaller classes, each with a single responsibility. Separate data into its own PaddleData class or use a <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html">ScriptableObject</a>. Then refactor everything else into a PaddleInput class, a PaddleMovement class, and a PaddleAudio class.</p>
+<p>A PaddleLogic class can process the input from the PaddleInput. Applying the speed information from the PaddleData, it can shift the paddle using the PaddleMovement. Finally, the PaddleLogic can notify the PaddleAudio to play a sound when the ball collides with the paddle.</p>
+<p><span id="page-41-0"></span><img src="_page_41_Figure_1.jpeg" alt=""></p>
+<p>Refactor a Paddle class into single responsibilities</p>
+<p>Each class does one thing in this redesign and fits into small, digestible pieces. You don&#39;t need to scroll through several screens to follow the code.</p>
+<p>You&#39;ll still require a Paddle script but its sole job is to tie these other classes together. The bulk of the functionality is split into the other classes.</p>
+<p>Note that clean code is not always the most compact code. Even when you use shorter classes, the total number of lines may increase during refactoring. However, each individual class becomes easier to read. When the time comes to debug or add new features, this simplified structure helps keep everything in its place.</p>
+<h2 id="refactoring-example">Refactoring example</h2>
+<p>For a more in-depth look at refactoring a simple project, see <a href="https://unity.com/how-to/how-architect-code-your-project-scales">How to architect code as</a>  <a href="https://unity.com/how-to/how-architect-code-your-project-scales">your project scales.</a> This article demonstrates how to break down larger Monobehaviours into smaller pieces using the single-responsibility principle.</p>
+<p>You can also watch Mikael Kalms&#39; original presentation, <a href="https://www.youtube.com/watch?v=1le4vScG3gk?utm_source=demand-gen&amp;utm_medium=pdf&amp;utm_campaign=clean-code&amp;utm_content=clean-code-that-scales-ebook">&quot;From</a> <em><a href="https://www.youtube.com/watch?v=1le4vScG3gk?utm_source=demand-gen&amp;utm_medium=pdf&amp;utm_campaign=clean-code&amp;utm_content=clean-code-that-scales-ebook">Pong</a></em> <a href="https://www.youtube.com/watch?v=1le4vScG3gk?utm_source=demand-gen&amp;utm_medium=pdf&amp;utm_campaign=clean-code&amp;utm_content=clean-code-that-scales-ebook">to 15-person project</a>,&quot; at Unite Berlin.</p>
+<h1 id="-span-id-page-42-0-span-methods"><span id="page-42-0"></span>Methods</h1>
+<h3 id="-you-know-you-are-working-on-clean-code-when-each-routine-you-read-turns-out-to-be-pretty-much-what-you-expected-"><em>You know you are working on clean code when each routine you read turns out to be pretty much what you expected.</em></h3>
+<p>– Ward Cunningham, inventor of Wiki and cofounder of eXtreme Programming</p>
+<p>Like classes, methods should be small with a single responsibility. Each method should describe one action or answer one question. It shouldn&#39;t do both.</p>
+<p>A good name for a method reflects what it does. For example, GetDistanceToTarget is a name that clarifies its intended purpose. Some will argue that being even more explicit with GetDistanceToTargetInMeters to make it clear that the distance is being returned in meters is also preferable, if your project has multiple units of measurement.</p>
+<p>Try the following suggestions when you create methods for your custom classes:</p>
+<ul>
+<li><strong>Use fewer arguments:</strong> Arguments can increase the complexity of your method. Reduce their number to make your methods easier to read and test.</li>
+<li><strong>Avoid excessive overloading</strong>: You can generate an endless permutation of method overloads. Select the few that reflect how you will call the method and implement those.</li>
+</ul>
+<p><span id="page-43-0"></span><img src="_page_43_Picture_0.jpeg" alt=""></p>
+<p>If you do overload a method, prevent confusion by making sure each method signature has a distinct number of arguments.</p>
+<p>— <strong>Avoid side effects:</strong> A method only needs to do what its name advertises. Avoid modifying anything outside of its scope. Pass in arguments by value instead of by reference when possible. If sending back results via the out or ref keyword, make sure that&#39;s the one thing you intend the method to accomplish.</p>
+<p>Though side effects are useful for certain tasks, they can lead to unintended consequences. Write a method without side effects to cut down on unexpected behavior.</p>
+<p>— <strong>Instead of passing in a flag, make another method:</strong> Don&#39;t set up your method to work in two different modes based on a flag. Make two methods with distinct names. For example, don&#39;t make a GetAngle method that returns degrees or radians based on a flag setting. Instead make methods for GetAngleInDegrees and GetAngleInRadians.</p>
+<p>While the Boolean flag as an argument seems innocuous, it can lead to <a href="https://martinfowler.com/bliki/FlagArgument.html">tangled</a>  <a href="https://martinfowler.com/bliki/FlagArgument.html">implementation</a> or broken single-responsibility.</p>
+<h2 id="methods-vs-functions-">Methods vs functions?</h2>
+<p>In Unity and C#, we refer to methods rather than functions because methods are functions that are defined within the context of a class or object. Since C# is an objectoriented programming (OOP) language, everything revolves around classes and objects, and methods are the actions that those objects can perform. A function, on the other hand, is a more generic term for a block of code that performs a specific task. In procedural programming languages, functions can exist independently, but in object-oriented languages like C# they are encapsulated within classes and are thus called methods.</p>
+<h4 id="extension-methods">Extension methods</h4>
+<p><a href="https://learn.unity.com/tutorial/extension-methods">Extension methods</a> offer a way to add additional functionality to classes that might otherwise be sealed and can be a clean way to extend the UnityEngine API.</p>
+<p>To create an extension method, make a static method and use the this keyword before the first argument, which will be the type you want to extend.</p>
+<p>For example, suppose you want to make a method called ResetTransformation to remove any scaling, rotation, or translation from a GameObject.</p>
+<p><span id="page-44-0"></span><img src="_page_44_Picture_0.jpeg" alt=""></p>
+<p>You can create a static method passing in a Transform for the first argument with the this keyword:</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: Define an extension method</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TransformExtensions</span>
+{
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ResetTransformation</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> Transform transform</span>)
+ </span>{
+ transform.position = Vector3.zero;
+ transform.localRotation = Quaternion.identity;
+ transform.localScale = Vector3.one;
+ }
+}
+</code></pre><p>Then, when you want to use it, invoke the ResetTransformation method. The ResetOnStart class calls it on the current Transform during Start.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: Calling the extension method</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ResetOnStart</span> : <span class="hljs-title">MonoBehaviour</span>
+{
+ <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Start</span>(<span class="hljs-params"></span>)
+ </span>{
+ transform.ResetTransformation();
+ }
+}
+</code></pre><p>For organization purposes, define your extension methods in a static class. For example, you create a class called TransformExtensions for methods that extend Transforms, Vector3Extensions for extending Vector3s, and so on.</p>
+<p>Extension methods can build many useful utilities without the need to create more Monobehaviours. See <a href="https://learn.unity.com/tutorial/extension-methods">Unity Learn: Extension Methods</a> to add them to your gamedev bag of tricks.</p>
+<h3 id="the-dry-principle-don-t-repeat-yourself">The DRY principle: Don&#39;t repeat yourself</h3>
+<p>In <em>The Pragmatic Programmer</em>, Andy Hunt and Dave Thomas formulated the DRY principle, or, &quot;don&#39;t repeat yourself.&quot; This oft-spoken mantra in software engineering advises programmers to avoid duplicate or repetitious logic.</p>
+<p>In doing so, you can ease bug fixing and maintenance costs. If you follow the singleresponsibility principle, you shouldn&#39;t need to change an unrelated piece of code whenever you modify a class or a method. Quashing a logical bug in a DRY program stops it everywhere.</p>
+<p><img src="_page_45_Picture_0.jpeg" alt=""></p>
+<p>The opposite of DRY is WET (&quot;we enjoy typing&quot; or &quot;write everything twice&quot;). Programming is WET when there are unnecessary repetitions in the code.</p>
+<p>Imagine there are two ParticleSystems (explosionA and explosionB) and two AudioClips (soundA and soundB). Each ParticleSystem needs to play with its respective sound, which you can achieve with simple methods like this.</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: WRITE EVERYTHING TWICE</span>
+ <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PlayExplosionA</span><span class="hljs-params">(Vector3 hitPosition)</span>
+ </span>{
+ explosionA.transform.position = hitPosition;
+ explosionA.Stop();
+ explosionA.Play();
+ AudioSource.PlayClipAtPoint(soundA, hitPosition);
+ }
+ <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PlayExplosionB</span><span class="hljs-params">(Vector3 hitPosition)</span>
+ </span>{
+ explosionB.transform.position = hitPosition;
+ explosionB.Stop();
+ explosionB.Play();
+ AudioSource.PlayClipAtPoint(soundB, hitPosition);
+ }
+</code></pre><p>Here each method takes a Vector3 position to move the ParticleSystem into place for playback. First, stop the particles (in case they are already playing) and play the simulation. The AudioSource&#39;s static PlayClipAtPoint method then creates a sound effect at the same location.</p>
+<p>One method is a cut-and-paste version of the other with a little text replacement. Though this works, you need to make a new method – with duplicate logic – every time you want to create an explosion.</p>
+<p>Instead, refactor it into one PlayFXWithSound method like this:</p>
+<pre><code><span class="hljs-comment">// EXAMPLE: Refactored DRY version</span>
+ private void PlayFXWithSound(ParticleSystem <span class="hljs-keyword">particle</span>, AudioClip 
+<span class="hljs-keyword">clip</span>, Vector3 hitPosition)
+ {
+ <span class="hljs-keyword">particle</span>.transform.position = hitPosition;
+ <span class="hljs-keyword">particle</span>.Stop();
+ <span class="hljs-keyword">particle</span>.Play();
+</code></pre><p><img src="_page_46_Picture_0.jpeg" alt=""></p>
+<p>}</p>
+<p>AudioSource.PlayClipAtPoint(clip, hitPosition);</p>
+<p>Add more ParticleSystems and AudioClips and you can continue using this same method to play them in concert.</p>
+<p>Note that it&#39;s possible to duplicate code without violating the DRY principle. It&#39;s more important that you don&#39;t duplicate logic.</p>
+<p>Here, we&#39;ve extracted the core functionality into the PlayFXWithSound method. If you need to adjust the logic, you only need to change it in one method rather than in both PlayExplosionA and PlayExplosionB.</p>
+<h1 id="-span-id-page-47-0-span-comments"><span id="page-47-0"></span>Comments</h1>
+<h3 id="-code-is-like-humor-if-you-have-to-explain-it-it-s-bad-"><em>Code is like humor. If you have to explain it, it&#39;s bad.</em></h3>
+<p>– Cory House, software architect and author</p>
+<p>Well-placed comments enhance the readability of your code. Excessive or frivolous comments can have the opposite effect. Like all things, strike a balance when using them.</p>
+<p>Most of your code won&#39;t need comments if you follow KISS principles and break your code into easy-to-digest logical parts. Well-named variables and functions will explain themselves.</p>
+<p>Rather than answering &quot;what,&quot; useful comments fill in the gaps and tell you &quot;why.&quot; Did you make specific decisions that are not immediately obvious? Is there a tricky bit of logic that needs clarification? Useful comments reveal information not gleaned from the code itself.</p>
+<p>Here are some dos and don&#39;ts for comments:</p>
+<p>— <strong>Don&#39;t add comments to replace bad code:</strong> If you need to add a comment to explain a convoluted tangle of logic, restructure your code to be more obvious. Then you won&#39;t need the comment.</p>
+<p><img src="_page_48_Picture_0.jpeg" alt=""></p>
+<p>— <strong>A properly named class, variable, or method serves in place of a comment:</strong> Is the code self-explanatory? Then reduce noise and skip the comment.</p>
+<p>// AVOID: noisy, redundant comments</p>
+<p>// the target to shoot</p>
+<p>Transform targetToShoot;</p>
+<ul>
+<li><strong>Place the comment on a separate line when possible, not at the end of a line of code:</strong> In most cases, keep each one on its own line for clarity.</li>
+<li><strong>Use the double slash</strong> (//) <strong>comment tag in most situations:</strong> Keep the comment near the code that it explains rather than using a large multi-line at the beginning. Keeping it close helps the reader connect the explanation with the logic.</li>
+<li><strong>Use a tooltip instead of a comment for serialized fields:</strong> If your fields in the Inspector need explanation, add a tooltip attribute and skip the separate comment. The tooltip will do double duty.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>// EXAMPLE: Tooltip replaces comment</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[Tooltip(&quot;The amount of side-to-side friction.&quot;)]<br>public float Grip;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tooltip in the Inspector</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="_page_49_Picture_0.jpeg" alt=""></p>
+<p>— <strong>You can also use a</strong> summary <strong><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags#summary">XML tag</a> in front of public methods or functions:</strong> Visual Studio can provide IntelliSense for many common XML-style comments.</p>
+<pre><code><span class="hljs-comment">// EXAMPLES:</span>
+<span class="hljs-comment">// This is a common comment.</span>
+<span class="hljs-comment">// Use them to show intent, logical flow, and approach.</span>
+<span class="hljs-comment">// You can also use a summary XML tag.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> Controls the weapon system including firing, reloading, and dealing </span>
+damage
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Fire</span>(<span class="hljs-params"></span>)
+</span>{
+ ...
+}
+</code></pre><ul>
+<li><strong>Insert one space between the comment delimiter</strong> (//) <strong>and the comment text.</strong></li>
+<li><strong>Add legal disclaimers:</strong> A comment is appropriate for the license or copyright information. However, avoid inserting an entire legal brief into your code. Link instead to an external page with the full legal information.</li>
+<li><strong>Style your comments:</strong> Maintain a uniform appearance for your comments, e.g., begin each comment with an uppercase letter and end with a period. Whatever your team decides, make it part of the style guide and follow it.</li>
+<li><strong>Don&#39;t create formatted blocks of asterisks or special characters around comments</strong>: This reduces readability and contributes to the general malaise of code clutter.</li>
+<li><strong>Remove commented out code:</strong> Though commenting out statements may be normal during testing and development, don&#39;t leave commented code lying around. Rely on your source control for previous versions of the code. Then have the courage to delete those two lines of code.</li>
+<li><strong>Keep your TODO comments up-to-date:</strong> As you complete tasks, make sure you scrub the TODO comments you&#39;ve left as a reminder. Outdated comments are distractions.</li>
+</ul>
+<p>You can add a name and date to a TODO for more accountability and context.</p>
+<p>Also, be realistic. That TODO you left in the code five years ago? You&#39;re never going to get to it. Remember YAGNI. Delete the TODO comment until you need to implement it.</p>
+<ul>
+<li><strong>Avoid journals:</strong> The comments are not a place for your dev diary. There&#39;s no need to log everything you&#39;re doing in a comment when you start a new class. Proper use of source control makes this redundant.</li>
+<li><strong>Avoid attributions:</strong> You don&#39;t need to add bylines, e.g., // added by devA or devB. Let the source control system take care of that.</li>
+</ul>
+<h2 id="-span-id-page-50-0-span-ui-toolkit-naming-conventions"><span id="page-50-0"></span>UI Toolkit naming conventions</h2>
+<p><em>If debugging is the process of removing software bugs, then programming must be the process of putting them in.</em></p>
+<p>— Edsger W. Dijkstra, computer science pioneer</p>
+<p>While our guide so far has focused on C# code style, we also want to touch upon naming conventions for using <a href="https://docs.unity3d.com/Manual/UIElements.html">UI Toolkit</a> and working with UXML and CSS. With UI Toolkit you&#39;ll need to query the <a href="https://docs.unity3d.com/Manual/UIE-VisualTree.html">visual elements</a> and <a href="https://docs.unity3d.com/Manual/UIE-USS.html">Unity Style Sheets</a> (USS) using a string identifier, so using a defined set of standards will lead overall to fewer errors and more readable code.</p>
+<p>We generally recommend the <strong>Block Element Modifier</strong> (BEM) naming convention for your visual elements in the UXML and Style Sheets classes. BEM is widely used in the context of CSS and modern web development that is the inspiration for UI Toolkit.</p>
+<p>At a glance, an element&#39;s BEM-style name can tell you what it does, where it appears, and how it relates to other elements around it. BEM uses three main components in the following convention:</p>
+<p>block-name__element-name--modifier-name</p>
+<p><img src="_page_51_Picture_0.jpeg" alt=""></p>
+<p>Here&#39;s an example:</p>
+<p>navbar-menu__shop-button--small</p>
+<p>Each name part may consist of Latin letters, digits, and dashes. Also note that each name part is joined together with either a double underscore __ or a double dash --.</p>
+<p>The block name (block-name) represents a high level-compontent, like a navigation menu or character stats – a distinct and meaningful UI component in your layout. In the case of a generic button that is not specific to any particular block, that can simply be left out, e.g., button--small.</p>
+<p>The element element-name is a child or part of a block and therefore, semantically tied to its block. In other words, elements rely on the block for their context and cannot exist without it. So, in the case of the shop-button example, its style indicates that it&#39;s different from other buttons belonging to the navbar-menu block (e.g., shop-button in navbar-menu__shopbutton).</p>
+<p>If your new element instantiates child elements in its constructor, assign the relevant classes to the children. For example, my-block__first-child, my-block__other-child.</p>
+<p>Finally, the modifier indicates a variation or state of a block or element. That could be when a button is pressed, a textbox item is selected and highlighted or in our example when it&#39;s a small variant of the shop button. This makes it easy to adapt to different scenarios without duplicating code.</p>
+<p>Here are some more <strong>examples of BEM naming</strong>:</p>
+<ul>
+<li>menu__home-button</li>
+<li>menu__shop-button</li>
+<li>navbar-menu__shop-button--small</li>
+</ul>
+<p>BEM class names are self-descriptive, making it easier for developers to understand the structure and purpose of components and making a clear hierarchy helps manage and update styles as projects grow.</p>
+<p>These examples use hyphen delimiting (aka Kebab case), which is common for CSS naming. Like with our other general guidelines, teams can decide which naming scheme works best for them, but should aim to choose early in the project and stay consistent later on.</p>
+<p>Read more about CSS naming conventions in <a href="https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/">this article,</a> as well as in the <a href="https://docs.unity3d.com/Manual/UIE-USS-WritingStyleSheets.html">UI Toolkit</a>  <a href="https://docs.unity3d.com/Manual/UIE-USS-WritingStyleSheets.html">documentation</a>.</p>
+<p><img src="_page_52_Picture_0.jpeg" alt=""></p>
+<h4 id="-tips-for-naming-conventions-in-ui-toolkit-"><strong>Tips for naming conventions in UI Toolkit</strong></h4>
+<p>Here are some guidelines for effective naming:</p>
+<ul>
+<li>Keep names short and clear (unambiguous). It&#39;s important to ensure that names are concise yet descriptive enough to convey their purpose and role within the UI.</li>
+<li>Avoid using type names (Button, Label) or element names (#my-button) in your BEM selectors. This avoids redundancy and potential confusion. BEM names should represent their roles and states, not their types.</li>
+<li>Avoid names/modifiers that can change (e.g., use &quot;button–quit&quot; instead of &quot;button– red&quot; when the color scheme is not yet final). Use semantic naming rather than presentational naming, which ensures names remain relevant even if styling details change.</li>
+<li>Extend these conventions to art assets, like sprites and textures associated with the UI Toolkit interface. Consistency in naming between code and assets helps maintain a clear relationship and better organization throughout the project.</li>
+<li>If you use the element in other projects, consider prefixing your classes to avoid conflicts with existing user class names. Namespacing or prefixing can prevent clashes when integrating with other projects or libraries.</li>
+<li>Use AddToClassList() in the constructor to add the relevant USS classes to your element instances. This method ensures that the appropriate styles are applied by adding the necessary classes at the time of element instantiation, maintaining consistency and clarity in your UI code.</li>
+</ul>
+<h1 id="-span-id-page-53-0-span-common-pitfalls"><span id="page-53-0"></span>Common pitfalls</h1>
+<p>Clean code isn&#39;t an accident. It&#39;s the deliberate work of individuals trying to think and code like a team.</p>
+<p>Not everything goes to plan, of course. Unclean code inevitably happens, no matter how hard you might try. You&#39;ll need to be on the hunt for it.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Code_smell">code smell</a> is a telltale sign you might have troublesome code lurking in the project. Though the following symptoms don&#39;t necessarily point to underlying problems, they are worth investigating when they appear:</p>
+<ul>
+<li><strong>Enigmatic naming:</strong> Everyone loves a good mystery, except in their coding standards. Classes, methods, and variables need straightforward, no-nonsense names. See the <a href="#page-10-0">naming section</a> for more information.</li>
+<li><strong>Needless complexity:</strong> Over-engineering happens when you try to anticipate every possible need for a class. This can manifest itself as a <a href="https://en.wikipedia.org/wiki/God_object">God object</a> with long methods or large classes that try to do too much. Break up a large monolithic class into smaller dedicated parts, each with its own responsibility.</li>
+<li><strong>Inflexibility:</strong> A small change should not require you to make multiple changes elsewhere. Double-check that you aren&#39;t breaking the single-responsibility principle if that&#39;s the case.</li>
+</ul>
+<p>When you give something more than one responsibility, it breaks more easily because it&#39;s harder to anticipate everything. If you update a method that is doing one thing, and the updated logic still works, you expect the rest of your code to continue to work afterward.</p>
+<p><img src="_page_54_Picture_0.jpeg" alt=""></p>
+<ul>
+<li><strong>Fragility</strong>: If you make a minor change and everything stops working, this often indicates a problem.</li>
+<li><strong>Immobility:</strong> You&#39;ll often write code that is reusable in a different context. If it requires many dependencies to deploy elsewhere, then decouple how the logic works.</li>
+<li><strong>Duplicate code:</strong> If it&#39;s noticeable that you&#39;ve cut and pasted code, it&#39;s time to refactor. Extract the core logic into its own function and call that from the other functions. Copyand-paste code is difficult to maintain because you need to update the logic in multiple locations each time there is a change. See the section on <a href="#page-44-0">DRY principles</a> for more information.</li>
+<li><strong>Excessive commentary:</strong> Comments can help explain code that isn&#39;t intuitive. However, developers can overuse them. A running commentary for every variable or statement is unnecessary. It&#39;s better to have a well-named method or class where the name reveals the intent and no comment is needed. If you split your logic into smaller pieces, the shorter code snippets require less explanation.</li>
+</ul>
+<h1 id="-span-id-page-55-0-span-conclusion"><span id="page-55-0"></span>Conclusion</h1>
+<p><em>Programming is not a zero-sum game. Teaching something to a fellow programmer doesn&#39;t take it away from you.</em></p>
+<p>– John Carmack, cofounder of <em>id Software</em> </p>
+<p>We hope you enjoyed this introduction to the principles of clean coding and code style guides.</p>
+<p>The techniques presented here are less a specific set of rules than a set of habits, and like all habits, you&#39;ll need to discover them yourself through daily application.</p>
+<p>As mentioned earlier in the guide, feel free to copy this <a href="https://github.com/thomasjacobsen-unity/Unity-Code-Style-Guide">C# style sheet for Unity developers</a> to use as a starting point for your own guide. Make the tweaks as needed, depending on your preferences. The most important thing is you agree on a standard as a team and stick to that.</p>
+<p>However, it doesn&#39;t stop with styling conventions. Prepare your code to be scalable by breaking it into small, modular pieces. As the marathon of development unfolds, expect to rewrite your code over and over again. Production can be a trying process with changing requirements.</p>
+<p><span id="page-56-0"></span><img src="_page_56_Picture_0.jpeg" alt=""></p>
+<p>If you are interested in more resources on writing a clean, organized, and readable codebase, check out our other e-book <em><a href="https://unity.com/resources/design-patterns-solid-ebook?isGated=false">Level up your code with design patterns and SOLID</a></em> and its companion <a href="https://assetstore.unity.com/packages/essentials/tutorial-projects/level-up-your-code-with-design-patterns-and-solid-289616">sample project</a> on the Unity Asset Store.</p>
+<h4 id="references">References</h4>
+<p>This guide is a short list of best practices used in computing. For more information, refer to the <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/">Microsoft Framework Design Guidelines,</a> which serve as an overarching style guide for this document.</p>
+<p>You can also learn more from the comprehensive volumes already written about clean code. Here are a few of our favorite books to consider to further your understanding:</p>
+<p><em>Clean Code: A Handbook of Agile Software Craftsmanship.</em> Robert C. Martin, 2008. Prentice Hall. ISBN 978-0132350884.</p>
+<p><em>The Pragmatic Programmer, 20th Anniversary Edition</em>. David Thomas and Andrew Hunt, 2019, Addison Wesley, ISBN 978-0135957059.</p>
+<p><em>Refactoring: Improving the Design of Existing Code, Second Edition.</em> Kent Beck and Martin Fowler, 2018. Addison-Wesley. ISBN 978-0-134-75759-9.</p>
+<p><em>Test-Driven Development</em>, First Edition. Kent Beck, 2002. Addison-Wesley. ISBN 978- 0321146533.</p>
+<h2 id="-span-id-page-57-0-span-appendix-script-templates"><span id="page-57-0"></span>Appendix: Script templates</h2>
+<h3 id="-talk-is-cheap-show-me-the-code-"><em>Talk is cheap. Show me the code.</em></h3>
+<p>— Linus Torvalds, creator of Linux and Git</p>
+<p>Script templates are predefined code snippets that are used when generating new C# files like monobehaviour or Scriptable Objects in Unity (e.g., via <strong>Assets &gt; Create &gt; C# Script</strong>).</p>
+<p>Once you establish formatting rules for your style guide, you can thus configure your script templates to help ensure consistency to your guidelines in your codebase and help reduce some repetitive work.</p>
+<p>The files can be found here:</p>
+<h4 id="-windows-"><strong>Windows:</strong></h4>
+<p>C:\Program Files\Unity\Hub\Editor[UnityVersion]\Editor\Data\Resources\ScriptTemplates</p>
+<h4 id="-mac-"><strong>Mac:</strong></h4>
+<p>/Applications/Unity/Hub/Editor/[UnityVersion]/Unity.app/Contents/Resources/ScriptTemplates</p>
+<p>On macOS, reveal the Unity.app package contents to show the Resources subdirectory.</p>
+<p>Inside this path, you&#39;ll see the default templates such as:</p>
+<p>1-Scripting__MonoBehaviour Script-NewMonoBehaviourScript.cs.txt</p>
+<p>2-Scripting__ScriptableObject Script-NewScriptableObjectScript.cs.txt</p>
+<p><img src="_page_58_Figure_5.jpeg" alt=""></p>
+<p>Whenever you make a new scripted asset in the Project window from the Create menu, Unity uses one of these templates.</p>
+<p><img src="_page_59_Picture_0.jpeg" alt=""></p>
+<p>If you open the file named 1-Scripting__MonoBehaviour Script-NewMonoBehaviourScript.cs.txt with a text editor, you will see the following:</p>
+<pre><code><span class="hljs-keyword">using</span> System.Collections;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> UnityEngine;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> #SCRIPTNAME# : MonoBehaviour
+{
+ <span class="hljs-comment">// Start is called before the first frame update</span>
+ <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span>
+ </span>{
+ #NOTRIM#
+ }
+ <span class="hljs-comment">// Update is called once per frame</span>
+ <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span><span class="hljs-params">()</span>
+ </span>{
+ #NOTRIM#
+ }
+}
+</code></pre><p>Note the keywords:</p>
+<ul>
+<li><strong>#SCRIPTNAME#</strong>: This is the name you&#39;ve specified for the script. If you don&#39;t customize the name, it uses the default name, e.g., NewBehaviourScript.</li>
+<li><strong>#NOTRIM#:</strong> This guarantees whitespace, making sure one line appears between the curly braces.</li>
+</ul>
+<p>Script templates are customizable. For example, you can add a namespace or remove the default <strong>Update</strong> method. Modifying the template can save you a few keystrokes every time you create one of these scripted assets.</p>
+<p>The script template filename follows this pattern:</p>
+<h4 id="-prioritynumber-menupath-defaultname-fileextension-txt-"><strong>PriorityNumber–MenuPath–DefaultName.FileExtension.txt</strong></h4>
+<p>A dash (-) character separates the different parts of the name:</p>
+<ul>
+<li><strong>PriorityNumber</strong> is the order that the script appears in, in the Create menu. Lower numbers have higher priority.</li>
+<li><strong>MenuPath</strong> allows you to customize how the file appears in the Create menu. You can create categories with the double underscore(__).</li>
+</ul>
+<p>For example, &quot;CustomScript__Misc__ScriptableObject&quot; creates the menu item ScriptableObject under the <strong>Create &gt; CustomScript &gt; Misc</strong> menu.</p>
+<p><img src="_page_60_Picture_0.jpeg" alt=""></p>
+<ul>
+<li><strong>DefaultName</strong> is the default name given to the asset if you don&#39;t specify one.</li>
+<li><strong>FileExtension</strong> is the file extension appended to the asset name.</li>
+</ul>
+<p>Also, note that each script template also has a .txt appended to the FileExtension.</p>
+<p>If you want to apply a script template to a specific Unity project, copy and paste the entire ScriptTemplates folder directly under the project&#39;s Assets: /Assets/ScriptTemplates. Or, you can copy just the sections that you&#39;re editing, if you prefer.</p>
+<p>Next, create new script templates or modify the originals to fit your preferences. Delete any script templates from the project if you don&#39;t plan on changing them. You can also just copy the files you like to use.</p>
+<p>You can also change the original script templates in the application resources but exercise caution. That affects all projects using that version of Unity.</p>
+<p>See <a href="https://support.unity3d.com/hc/en-us/articles/210223733-How-to-customize-Unity-script-templates?utm_source=demand-gen&amp;utm_medium=pdf&amp;utm_campaign=clean-code&amp;utm_content=clean-code-that-scales-ebook">this support article</a> for more information about customizing your script templates. Also, check the attached project for a few additional script template examples.</p>
+<h1 id="-span-id-page-61-0-span-appendix-testing-and-debugging"><span id="page-61-0"></span>Appendix: Testing and debugging</h1>
+<p><em>Debugging is like being a detective in a crime movie where you are also the murderer.</em></p>
+<p>— Filipe Fortes</p>
+<p>Automated testing is an effective tool for improving the quality of your code and reducing the time spent on bug fixes. <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test-driven development (TDD)</a> is a development methodology where you create <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> while you develop the software. In fact, you&#39;ll routinely write each test case before making a specific feature function.</p>
+<p>As you develop the software, you&#39;ll repeatedly run it against this whole test suite of automated processes. This is in stark contrast to writing the software first and building the test cases later. In TDD, coding, testing, and refactoring are interwoven.</p>
+<p><span id="page-62-0"></span><img src="_page_62_Picture_0.jpeg" alt=""></p>
+<p>Here&#39;s the basic idea, presented in Kent Beck&#39;s <em>Test-Driven Development by Example</em>:</p>
+<ul>
+<li><strong>1. Add a single unit test:</strong> This describes one new feature you want to add to your application; spec out what needs to be done, either from your team or your user base.</li>
+<li><strong>2. Run the test</strong>: The test should fail since you haven&#39;t implemented the new feature into your program. Additionally, this verifies whether or not the test itself is valid. It should not always pass by default.</li>
+<li><strong>3. Write the simplest code that passes the new test:</strong> Write just enough logic to make it pass the new unit test. This doesn&#39;t have to be clean code at this point. It can use inelegant structure, hard-coded magic numbers, and so on, as long as it passes the unit test.</li>
+<li><strong>4. Confirm that all tests pass</strong>: Run the full automated test suite. Your previous unit tests should all pass. The new code meets your new testing requirements and the old requirements as well.</li>
+</ul>
+<p>If not, modify your new code – and only your new code – until all tests pass.</p>
+<p><strong>5. Refactor</strong>: Go back and clean up your new code. Use your style guide and make sure everything conforms.</p>
+<p>Move the code, so it is logically organized. Keep similar classes and methods together, etc. Remove duplicate code, and rename any identifiers to minimize the need for comments. Split methods or classes that are too long.</p>
+<p>Run the automated testing suite after each refactor.</p>
+<p><strong>6. Repeat</strong>: Go through this process every time you add a new feature. Each step is a small, incremental change. Make frequent commits under source control. When debugging, you only have to examine a small amount of new code for each unit test. This simplifies the scope of your work. If all else fails, roll back to the previous commit and begin again.</p>
+<p>That&#39;s the gist of it. If you develop software using this methodology, you tend to follow the KISS principle by necessity. Add one feature at a time, testing as you go. Refactor continuously with each test, so cleaning your code becomes a constant ritual.</p>
+<p>Like most of the tenets of clean code, TDD takes extra work in the short-term but often results in the improvement of long-term maintenance and readability.</p>
+<h4 id="unity-test-framework">Unity Test Framework</h4>
+<p>The <strong><a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.4/manual/index.html">Unity Test Framework (UTF)</a></strong>, formerly known as the Unity Test Runner, provides a standard test framework for Unity developers. UTF uses <a href="https://nunit.org">NUnit</a>, an open-source testing library for .NET languages.</p>
+<p>The Unity Test Framework can perform unit tests in the Editor (either using <strong>Edit Mode</strong> or <strong>Play Mode</strong>) and on target platforms (e.g., Standalone, Android, iOS). Install UTF via the Package Manager. The <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@2.0/manual/index.html">documentation</a> will help you get started.</p>
+<p><img src="_page_63_Picture_0.jpeg" alt=""></p>
+<p>The general workflow of the Unity Test Framework is to:</p>
+<ul>
+<li><strong>Create a new test suite, called a <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@2.0/manual/workflow-create-test-assembly.html">Test Assembly</a></strong>: The Test Runner UI simplifies this process and creates a folder in your project.</li>
+<li><strong>Create a test:</strong> The Test Runner UI helps you manage the C# scripts that you will create as unit tests. Select a Test Assembly folder and navigate to <strong>Assets &gt; Create &gt; Testing &gt; C# Test Script.</strong> Edit this script and add logic for your test.</li>
+<li><strong>Run a test:</strong> Use the Test Runner UI to run all of the unit tests or run a selected one. Using <a href="https://www.jetbrains.com/help/rider/Unity.html">JetBrains Rider,</a> you can also <a href="https://www.jetbrains.com/help/rider/Running_and_Debugging_Unity_Tests.html">run UTF directly from the script editor</a>.</li>
+<li><strong>Add Play mode tests in the Editor or as standalone:</strong> The default Test Assembly works in Edit Mode. If you want unit tests to work at runtime, create a separate assembly in Play Mode. Configure this for your standalone build as well (with the results of the test displayed in the Editor).</li>
+</ul>
+<p><img src="_page_63_Picture_7.jpeg" alt=""></p>
+<p>The Test Framework displays the results of a standalone build within the Editor.</p>
+<p>See these resources for more information on UTF and general testing and debugging tips for your Unity projects:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/workflow-run-playmode-test-standalone.html">Unity Test Framework microsite</a></li>
+<li><a href="https://unity.com/how-to/automated-tests-unity-test-framework">Run automated tests for your games with Unity Test Framework</a></li>
+<li><a href="https://unity.com/how-to/debugging-with-rosyln-analyzers">How to debug game code with Roslyn Analyzers</a></li>
+<li><a href="https://unity.com/how-to/testing-and-quality-assurance-tips-unity-projects">Testing and quality assurance tips for Unity projects</a></li>
+<li><a href="https://unity.com/how-to/debugging-with-microsoft-visual-studio-code">Speed up debugging with Microsoft Visual Studio Code</a></li>
+<li><a href="https://unity.com/how-to/debugging-with-microsoft-visual-studio-2022">How to debug your code with Microsoft Visual Studio</a></li>
+</ul>
+<p><img src="_page_64_Picture_0.jpeg" alt=""></p>
+<p><a href="https://unity.com/es">unity.com</a></p>
+</body></html>
